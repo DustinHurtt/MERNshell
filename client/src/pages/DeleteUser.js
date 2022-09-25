@@ -11,7 +11,7 @@ const DeleteUser = () => {
 
   const navigate = useNavigate();
 
-  function checkError(e) {
+  const checkError = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setErrormessage("your password didn't match");

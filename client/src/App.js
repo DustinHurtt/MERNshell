@@ -8,28 +8,26 @@ import SignUp from "./pages/SignUp";
 import NotFound from "./pages/NotFound";
 import DeleteUser from "./pages/DeleteUser";
 
-function App() {
+const App = () => {
   const navigate = useNavigate();
 
   let token = localStorage.getItem("authToken");
 
-  function logout() {
+  const logout = () => {
     localStorage.clear();
     navigate("/");
   }
-
-  console.log(token, "Token")
 
   return (
     <div>
       <div className="navbar">
         <header className="nav-wrapper">
-          <div className="navIconContainer">
-            <Link to="/" className="navIconImage">
-              <img className="navIcon" src={""} alt="appIcon" />
+          <div className="nav-icon-container">
+            <Link to="/" className="nav-icon-image">
+              <img className="nav-icon" src={""} alt="appIcon" />
             </Link>
 
-            <h1 className="navHeadline">Mern Shell</h1>
+            <h2 className="nac-headline">Mern Shell</h2>
           </div>
           {token ? (
             <nav className="nav-items">

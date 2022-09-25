@@ -52,13 +52,13 @@ router.post("/signup", function (req, res, next) {
 
 router.post("/login", function (req, res, next) {
   if (!req.body.username || !req.body.password) {
-    return res.json({ message: "please fill out both fields" });
+    return res.status(400).json({ message: "please fill out both fields" });
   }
 
   User.findOne({ username: req.body.username })
     .then((foundUser) => {
       if (!foundUser) {
-        return res.json({ message: "Username or Password is incorrect!!!" });
+        return res.status(401).json({ message: "Username or Password is incorrect!!!" });
       }
 
       const doesMatch = bcrypt.compareSync(
@@ -75,7 +75,7 @@ router.post("/login", function (req, res, next) {
         });
         res.json({ token: token, id: foundUser._id });
       } else {
-        return res.json({ message: "Username or Password is incorrect" });
+        return res.status(402).json({ message: "Username or Password is incorrect" });
       }
     })
     .catch((err) => {
@@ -86,7 +86,6 @@ router.post("/login", function (req, res, next) {
 router.get("/login-test", isLoggedIn, (req, res) => {
   res.json({ message: "You are logged in" });
 });
-
 
 router.post("/delete-user", isLoggedIn, (req, res, next) => {
   User.findById(req.user._id)

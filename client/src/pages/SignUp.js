@@ -7,29 +7,29 @@ import { post } from "../authService/authService";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-  let [username, setUsername] = React.useState("");
-  let [email, setEmail] = React.useState("");
-  let [password, setPassword] = React.useState("");
-  let [confirmPassword, setConfirmPassword] = React.useState("");
-  let [errormessage, setErrormessage] = React.useState("");
+  const [username, setUsername] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
+  const [errormessage, setErrormessage] = React.useState("");
 
   const navigate = useNavigate();
 
   const regexExp =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
 
-  function checkError(e) {
+  const checkError = (e) => {
     e.preventDefault();
     if (username.length < 4) {
       setErrormessage("username must be at least four characters");
+    } else if (!regexExp.test(email)) {
+      setErrormessage("that is not a valid email address");
     } else if (password.length < 6) {
       setErrormessage("password must be at least 6 characters");
     } else if (password === "password") {
       setErrormessage("your password can't be 'password'");
     } else if (password !== confirmPassword) {
       setErrormessage("your password didn't match");
-    } else if (!regexExp.test(email)) {
-      setErrormessage("that is not a valid email address");
     } else {
       setErrormessage(`Welcome ${username}!`);
       post("/users/signup", {
@@ -43,24 +43,23 @@ const SignUp = () => {
           navigate("/");
         })
         .catch((err) => {
+          setErrormessage(err.response.data.message)
           console.log("Something went wrong", err.message);
         });
     }
   }
 
   return (
-    <div className="homeLanding">
-      <div className="homeContainer">
+    <div className="home-landing">
+      <div className="home-container">
         <form onSubmit={checkError}>
           <Username setUsername={setUsername} />
           <Email setEmail={setEmail} />
           <Password setPassword={setPassword} />
           <ConfirmPassword setConfirmPassword={setConfirmPassword} />
-
           <button>Submit</button>
-
-          <p>{errormessage}</p>
         </form>
+        {errormessage && (<p>{errormessage}</p>)}
       </div>
     </div>
   );

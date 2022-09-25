@@ -9,10 +9,11 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [errormessage, setErrormessage] = React.useState("");
 
   const navigate = useNavigate();
 
-  function submit(e) {
+  const submit= (e) => {
     e.preventDefault();
 
     post("/users/login", {
@@ -25,18 +26,20 @@ const Login = () => {
         navigate("/");
       })
       .catch((err) => {
+        setErrormessage(err.response.data.message)
         console.log("Something went wrong", err.message);
       });
   }
 
   return (
-    <div className="homeLanding">
-      <div className="homeContainer">
+    <div className="home-landing">
+      <div className="home-container">
         <form onSubmit={submit}>
           <Username setUsername={setUsername} />
           <Password setPassword={setPassword} />
           <button>Submit</button>
         </form>
+        {errormessage && (<p>{errormessage}</p>)}
       </div>
     </div>
   );
