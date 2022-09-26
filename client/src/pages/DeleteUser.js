@@ -4,24 +4,23 @@ import ConfirmPassword from "../components/ConfirmPassword";
 import { post } from "../authService/authService";
 import { useNavigate } from "react-router-dom";
 
-const DeleteUser = () => {
+const DeleteUser = ({setMessage}) => {
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
-  const [errormessage, setErrormessage] = React.useState("");
 
   const navigate = useNavigate();
 
   const checkError = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setErrormessage("your password didn't match");
+      setMessage("your password didn't match");
     } else {
-      // setErrormessage(`Welcome ${username}!`)
-      post("/users/delete-profile", {
+      post("/users/delete-user", {
         password: password,
       })
         .then((results) => {
           localStorage.clear();
+          setMessage("user deleted");
           navigate("/");
         })
         .catch((err) => {
@@ -39,7 +38,6 @@ const DeleteUser = () => {
 
         <button type="submit">Submit</button>
 
-        <p>{errormessage}</p>
       </form>
     </div>
   );

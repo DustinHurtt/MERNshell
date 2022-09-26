@@ -84,7 +84,7 @@ router.post("/login", function (req, res, next) {
 });
 
 router.get("/login-test", isLoggedIn, (req, res) => {
-  res.json({ message: "You are logged in" });
+  res.json({ message: "You are logged in." });
 });
 
 router.post("/delete-user", isLoggedIn, (req, res, next) => {

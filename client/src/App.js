@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
@@ -9,12 +9,16 @@ import NotFound from "./pages/NotFound";
 import DeleteUser from "./pages/DeleteUser";
 
 const App = () => {
+
+  const [message, setMessage] = useState("")
+  
   const navigate = useNavigate();
 
   let token = localStorage.getItem("authToken");
 
   const logout = () => {
     localStorage.clear();
+    setMessage("You are logged out.");
     navigate("/");
   }
 
@@ -31,7 +35,8 @@ const App = () => {
           </div>
           {token ? (
             <nav className="nav-items">
-              <Link to="/" className="icon">+Home</Link>
+              <Link to="/" className="icon">Home</Link>
+              <Link to="/delete-user" className="icon">Delete User</Link>
               <button onClick={logout} className="icon">Logout</button>
             </nav>
           ) : (
@@ -45,12 +50,15 @@ const App = () => {
       </div>
 
       <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/signup" element={<SignUp />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/delete-user" element={<DeleteUser />}></Route>
+        <Route path="/" element={<Home setMessage={setMessage} />}></Route>
+        <Route path="/signup" element={<SignUp setMessage={setMessage} />}></Route>
+        <Route path="/login" element={<Login setMessage={setMessage} />}></Route>
+        <Route path="/delete-user" element={<DeleteUser setMessage={setMessage} />}></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
+
+      {message && (<p>{message}</p>)}
+
     </div>
   );
 }

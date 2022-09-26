@@ -6,12 +6,11 @@ import Username from "../components/Username";
 import { post } from "../authService/authService";
 import { useNavigate } from "react-router-dom";
 
-const SignUp = () => {
+const SignUp = ({setMessage}) => {
   const [username, setUsername] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
-  const [errormessage, setErrormessage] = React.useState("");
 
   const navigate = useNavigate();
 
@@ -21,17 +20,16 @@ const SignUp = () => {
   const checkError = (e) => {
     e.preventDefault();
     if (username.length < 4) {
-      setErrormessage("username must be at least four characters");
+      setMessage("username must be at least four characters");
     } else if (!regexExp.test(email)) {
-      setErrormessage("that is not a valid email address");
+      setMessage("that is not a valid email address");
     } else if (password.length < 6) {
-      setErrormessage("password must be at least 6 characters");
+      setMessage("password must be at least 6 characters");
     } else if (password === "password") {
-      setErrormessage("your password can't be 'password'");
+      setMessage("your password can't be 'password'");
     } else if (password !== confirmPassword) {
-      setErrormessage("your password didn't match");
+      setMessage("your password didn't match");
     } else {
-      setErrormessage(`Welcome ${username}!`);
       post("/users/signup", {
         username: username,
         password: password,
@@ -41,9 +39,10 @@ const SignUp = () => {
           localStorage.setItem("authToken", results.data.token);
           localStorage.setItem("id", results.data.id);
           navigate("/");
+          // setMessage(`Welcome ${username}!`)
         })
         .catch((err) => {
-          setErrormessage(err.response.data.message)
+          setMessage(err.response.data.message)
           console.log("Something went wrong", err.message);
         });
     }
@@ -59,7 +58,6 @@ const SignUp = () => {
           <ConfirmPassword setConfirmPassword={setConfirmPassword} />
           <button>Submit</button>
         </form>
-        {errormessage && (<p>{errormessage}</p>)}
       </div>
     </div>
   );

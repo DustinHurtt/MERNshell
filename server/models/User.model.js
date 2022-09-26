@@ -12,7 +12,6 @@ const userSchema = new Schema(
       required: true,
     },
     email: String,
-    name: String,
   },
   {
     timeseries: true,
