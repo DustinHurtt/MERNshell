@@ -9,9 +9,8 @@ import NotFound from "./pages/NotFound";
 import DeleteUser from "./pages/DeleteUser";
 
 const App = () => {
+  const [message, setMessage] = useState("");
 
-  const [message, setMessage] = useState("")
-  
   const navigate = useNavigate();
 
   let token = localStorage.getItem("authToken");
@@ -20,7 +19,7 @@ const App = () => {
     localStorage.clear();
     setMessage("You are logged out.");
     navigate("/");
-  }
+  };
 
   return (
     <div>
@@ -35,15 +34,27 @@ const App = () => {
           </div>
           {token ? (
             <nav className="nav-items">
-              <Link to="/" className="icon">Home</Link>
-              <Link to="/delete-user" className="icon">Delete User</Link>
-              <button onClick={logout} className="icon">Logout</button>
+              <Link to="/" className="icon">
+                Home
+              </Link>
+              <Link to="/delete-user" className="icon">
+                Delete User
+              </Link>
+              <button onClick={logout} className="icon">
+                Logout
+              </button>
             </nav>
           ) : (
             <nav className="nav-items">
-              <Link to="/" className="icon">Home</Link>
-              <Link to="/signup" className="icon">Sign Up</Link>
-              <Link to="/login" className="icon">Log In</Link>
+              <Link to="/" className="icon">
+                Home
+              </Link>
+              <Link to="/signup" className="icon">
+                Sign Up
+              </Link>
+              <Link to="/login" className="icon">
+                Log In
+              </Link>
             </nav>
           )}
         </header>
@@ -51,17 +62,24 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<Home setMessage={setMessage} />}></Route>
-        <Route path="/signup" element={<SignUp setMessage={setMessage} />}></Route>
-        <Route path="/login" element={<Login setMessage={setMessage} />}></Route>
-        <Route path="/delete-user" element={<DeleteUser setMessage={setMessage} />}></Route>
+        <Route
+          path="/signup"
+          element={<SignUp setMessage={setMessage} />}
+        ></Route>
+        <Route
+          path="/login"
+          element={<Login setMessage={setMessage} />}
+        ></Route>
+        <Route
+          path="/delete-user"
+          element={<DeleteUser setMessage={setMessage} />}
+        ></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
 
-      {message && (<p>{message}</p>)}
-
+      {message && <p>{message}</p>}
     </div>
   );
-}
+};
 
 export default App;
-

@@ -6,7 +6,7 @@ import Username from "../components/Username";
 import { post } from "../authService/authService";
 import { useNavigate } from "react-router-dom";
 
-const SignUp = ({setMessage}) => {
+const SignUp = ({ setMessage }) => {
   const [username, setUsername] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -39,14 +39,13 @@ const SignUp = ({setMessage}) => {
           localStorage.setItem("authToken", results.data.token);
           localStorage.setItem("id", results.data.id);
           navigate("/");
-          // setMessage(`Welcome ${username}!`)
         })
         .catch((err) => {
-          setMessage(err.response.data.message)
+          setMessage(err.response.data.message);
           console.log("Something went wrong", err.message);
         });
     }
-  }
+  };
 
   return (
     <div className="home-landing">

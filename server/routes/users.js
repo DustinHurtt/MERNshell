@@ -84,7 +84,16 @@ router.post("/login", function (req, res, next) {
 });
 
 router.get("/login-test", isLoggedIn, (req, res) => {
-  res.json({ message: "You are logged in." });
+  User.findById(req.user._id)
+  .then((foundUser) => {
+    console.log(foundUser, "foundUser")
+    res.json({ message: `Welcome ${foundUser.username}` })
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+  // console.log(req.user, "RES")
+  // res.json({ message: "You are logged in." });
 });
 
 router.post("/delete-user", isLoggedIn, (req, res, next) => {
