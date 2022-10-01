@@ -6,7 +6,10 @@ const Email = (props) => {
 
         <div>
             <label>Email</label>
-            <input name='email' onChange={(e)=>props.setEmail(e.target.value)} value={props.email}/>
+            <input name='email' onChange={(e)=>props.setEmail(e.target.value)} 
+            // value={props.email}
+
+            />
         </div>
 
     )

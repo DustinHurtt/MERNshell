@@ -71,9 +71,9 @@ router.post("/login", function (req, res, next) {
 
         const token = jwt.sign(payload, process.env.SECRET, {
           algorithm: "HS256",
-          expiresIn: "24hr",
+          expiresIn: "1m",
         });
-        res.json({ token: token, id: foundUser._id });
+        res.json({ token: token, id: foundUser._id, message: `Welcome ${foundUser.username}` });
       } else {
         return res.status(402).json({ message: "Username or Password is incorrect" });
       }
@@ -84,14 +84,14 @@ router.post("/login", function (req, res, next) {
 });
 
 router.get("/login-test", isLoggedIn, (req, res) => {
-  User.findById(req.user._id)
-  .then((foundUser) => {
-    console.log(foundUser, "foundUser")
-    res.json({ message: `Welcome ${foundUser.username}` })
-  })
-  .catch((err) => {
-    console.log(err)
-  })
+  // User.findById(req.user._id)
+  // .then((foundUser) => {
+  //   console.log(foundUser, "foundUser")
+  //   res.json({ message: `Welcome ${foundUser.username}` })
+  // })
+  // .catch((err) => {
+  //   console.log(err)
+  // })
   // console.log(req.user, "RES")
   // res.json({ message: "You are logged in." });
 });

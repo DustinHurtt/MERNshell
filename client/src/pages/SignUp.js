@@ -16,20 +16,31 @@ const SignUp = ({ setMessage }) => {
 
   const regexExp =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
+    
 
   const checkError = (e) => {
     e.preventDefault();
     if (username.length < 4) {
       setMessage("username must be at least four characters");
-    } else if (!regexExp.test(email)) {
+      return;
+    } 
+    if (!regexExp.test(email)) {
       setMessage("that is not a valid email address");
-    } else if (password.length < 6) {
+      return;
+    } 
+    if (password.length < 6) {
       setMessage("password must be at least 6 characters");
-    } else if (password === "password") {
+      return;
+    } 
+    if (password === "password") {
       setMessage("your password can't be 'password'");
-    } else if (password !== confirmPassword) {
+      return;
+    } 
+    if (password !== confirmPassword) {
       setMessage("your password didn't match");
-    } else {
+      return;
+    } 
+
       post("/users/signup", {
         username: username,
         password: password,
@@ -38,13 +49,13 @@ const SignUp = ({ setMessage }) => {
         .then((results) => {
           localStorage.setItem("authToken", results.data.token);
           localStorage.setItem("id", results.data.id);
+          setMessage(`Welcome ${username}!`);
           navigate("/");
         })
         .catch((err) => {
           setMessage(err.response.data.message);
           console.log("Something went wrong", err.message);
         });
-    }
   };
 
   return (

@@ -8,12 +8,29 @@ import SignUp from "./pages/SignUp";
 import NotFound from "./pages/NotFound";
 import DeleteUser from "./pages/DeleteUser";
 
+import { get } from './authService/authService'
+
 const App = () => {
   const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
 
   let token = localStorage.getItem("authToken");
+
+  React.useEffect(() => {
+    // let token = localStorage.getItem("authToken");
+    console.log("This is the token", token);
+    get("/users/login-test")
+      .then((results) => {
+        console.log("Are we logged in?", results.data);
+        // setMessage(results.data.message);
+      })
+      .catch((err) => {
+        localStorage.clear();
+        console.log(err.message);
+        token=null;
+      });
+  }, []);
 
   const logout = () => {
     localStorage.clear();

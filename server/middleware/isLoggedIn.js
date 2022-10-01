@@ -9,9 +9,11 @@ const isLoggedIn = async (req, res, next) => {
   try {
     const tokenInfo = jwt.verify(token, process.env.SECRET);
     req.user = tokenInfo;
+    console.log(tokenInfo, "TOKEN INFO")
     next();
   } catch (error) {
-    return res.json(error);
+    console.log(error.message, "Error.message")
+    return res.status(401).json(error);
   }
 };
 
