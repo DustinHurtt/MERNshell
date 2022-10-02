@@ -9,7 +9,6 @@ const isLoggedIn = async (req, res, next) => {
   try {
     const tokenInfo = jwt.verify(token, process.env.SECRET);
     req.user = tokenInfo;
-    console.log(tokenInfo, "TOKEN INFO")
     next();
   } catch (error) {
     console.log(error.message, "Error.message")

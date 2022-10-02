@@ -1,40 +1,33 @@
 import React, { useState } from "react";
 import "./App.css";
 
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Routes, Route, Link, useNavigate, Navigate, Outlet } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import NotFound from "./pages/NotFound";
 import DeleteUser from "./pages/DeleteUser";
 
-import { get } from './authService/authService'
-
 const App = () => {
   const [message, setMessage] = useState("");
-
-  const navigate = useNavigate();
+  const [user, setUser] = useState("");
 
   let token = localStorage.getItem("authToken");
 
-  React.useEffect(() => {
-    // let token = localStorage.getItem("authToken");
-    console.log("This is the token", token);
-    get("/users/login-test")
-      .then((results) => {
-        console.log("Are we logged in?", results.data);
-        // setMessage(results.data.message);
-      })
-      .catch((err) => {
-        localStorage.clear();
-        console.log(err.message);
-        token=null;
-      });
-  }, []);
+  const navigate = useNavigate();
+
+  const LoggedIn = () => {
+    return token ? <Outlet /> : <Navigate to="/" />;
+  };
+
+  const NotLoggedIn = () => {
+    return !token ? <Outlet /> : <Navigate to="/" />;
+  };
 
   const logout = () => {
     localStorage.clear();
     setMessage("You are logged out.");
+    setUser("");
     navigate("/");
   };
 
@@ -49,7 +42,7 @@ const App = () => {
 
             <h2 className="nac-headline">Mern Shell</h2>
           </div>
-          {token ? (
+          {user ? (
             <nav className="nav-items">
               <Link to="/" className="icon">
                 Home
@@ -78,20 +71,15 @@ const App = () => {
       </div>
 
       <Routes>
-        <Route path="/" element={<Home setMessage={setMessage} />}></Route>
-        <Route
-          path="/signup"
-          element={<SignUp setMessage={setMessage} />}
-        ></Route>
-        <Route
-          path="/login"
-          element={<Login setMessage={setMessage} />}
-        ></Route>
-        <Route
-          path="/delete-user"
-          element={<DeleteUser setMessage={setMessage} />}
-        ></Route>
-        <Route path="*" element={<NotFound />}></Route>
+        <Route path="/" element={<Home setUser={setUser} />} />
+        <Route path="*" element={<NotFound />} />
+        <Route element={<LoggedIn />}>
+          <Route path="/delete-user" element={<DeleteUser setMessage={setMessage} />} />
+        </Route>
+        <Route element={<NotLoggedIn />}>
+          <Route path="/signup" element={<SignUp setMessage={setMessage} />} />
+          <Route path="/login" element={<Login setMessage={setMessage} />} />
+        </Route>
       </Routes>
 
       {message && <p>{message}</p>}
