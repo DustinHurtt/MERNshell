@@ -4,7 +4,7 @@ import ConfirmPassword from "../components/ConfirmPassword";
 import { post } from "../authService/authService";
 import { useNavigate } from "react-router-dom";
 
-const DeleteUser = ({setMessage}) => {
+const DeleteUser = ({setUser, setMessage}) => {
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
 
@@ -19,6 +19,7 @@ const DeleteUser = ({setMessage}) => {
         password: password,
       })
         .then((results) => {
+          setUser('')
           localStorage.clear();
           setMessage("user deleted");
           navigate("/");

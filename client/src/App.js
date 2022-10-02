@@ -74,7 +74,7 @@ const App = () => {
         <Route path="/" element={<Home setUser={setUser} />} />
         <Route path="*" element={<NotFound />} />
         <Route element={<LoggedIn />}>
-          <Route path="/delete-user" element={<DeleteUser setMessage={setMessage} />} />
+          <Route path="/delete-user" element={<DeleteUser setUser={setUser} setMessage={setMessage} />} />
         </Route>
         <Route element={<NotLoggedIn />}>
           <Route path="/signup" element={<SignUp setMessage={setMessage} />} />
