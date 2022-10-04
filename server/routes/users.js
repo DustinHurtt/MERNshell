@@ -8,11 +8,11 @@ const saltRounds = 10;
 
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-router.get("/", function (req, res, next) {
+router.get("/", (req, res, next) => {
   res.send("respond with a resource");
 });
 
-router.post("/signup", function (req, res, next) {
+router.post("/signup", (req, res, next) => {
   if (!req.body.username || !req.body.password) {
     return res.status(400).json({ message: "please fill out both fields" });
   }
@@ -49,7 +49,7 @@ router.post("/signup", function (req, res, next) {
     });
 });
 
-router.post("/login", function (req, res, next) {
+router.post("/login", (req, res, next) => {
   if (!req.body.username || !req.body.password) {
     return res.status(400).json({ message: "please fill out both fields" });
   }

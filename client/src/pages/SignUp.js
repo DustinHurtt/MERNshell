@@ -6,7 +6,7 @@ import Username from "../components/Username";
 import { post } from "../authService/authService";
 import { useNavigate } from "react-router-dom";
 
-const SignUp = ({ setMessage }) => {
+const SignUp = ({ setMessage, setIsLoading }) => {
   const [username, setUsername] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -19,6 +19,7 @@ const SignUp = ({ setMessage }) => {
     
 
   const checkError = (e) => {
+    setIsLoading(true);
     e.preventDefault();
     if (username.length < 4) {
       setMessage("username must be at least four characters");
@@ -55,6 +56,9 @@ const SignUp = ({ setMessage }) => {
         .catch((err) => {
           setMessage(err.response.data.message);
           console.log("Something went wrong", err.message);
+        })
+        .finally(() => {
+          setIsLoading(false)
         });
   };
 

@@ -6,13 +6,14 @@ import Password from "../components/Password";
 import { post } from "../authService/authService";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({setMessage}) => {
+const Login = ({ setMessage, setIsLoading }) => {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
   const navigate = useNavigate();
 
   const submit= (e) => {
+    setIsLoading(true); 
     e.preventDefault();
 
     post("/users/login", {
@@ -28,6 +29,9 @@ const Login = ({setMessage}) => {
       .catch((err) => {
         setMessage(err.response.data.message)
         console.log("Something went wrong", err.message);
+      })
+      .finally(() => {
+        setIsLoading(false)
       });
   }
 

@@ -1,8 +1,10 @@
 import React from "react";
 import { get } from "../authService/authService";
 
-const Home = ({ setUser }) => {
+const Home = ({ setUser, setIsLoading }) => {
   React.useEffect(() => {
+    setIsLoading(true);
+
     let token = localStorage.getItem("authToken");
 
     console.log("This is the token", token);
@@ -15,8 +17,11 @@ const Home = ({ setUser }) => {
       .catch((err) => {
         localStorage.clear();
         console.log(err.message);
-      });
-  }, [setUser]);
+      })
+        .finally(() => {
+          setIsLoading(false)
+        });
+  }, [setUser, setIsLoading]);
 
   return (
     <div className="home-landing">

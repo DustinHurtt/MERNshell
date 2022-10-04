@@ -4,13 +4,14 @@ import ConfirmPassword from "../components/ConfirmPassword";
 import { post } from "../authService/authService";
 import { useNavigate } from "react-router-dom";
 
-const DeleteUser = ({setUser, setMessage}) => {
+const DeleteUser = ({ setUser, setMessage, setIsLoading }) => {
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
 
   const navigate = useNavigate();
 
   const checkError = (e) => {
+    setIsLoading(true);
     e.preventDefault();
     if (password !== confirmPassword) {
       setMessage("your password didn't match");
@@ -26,6 +27,9 @@ const DeleteUser = ({setUser, setMessage}) => {
         })
         .catch((err) => {
           console.log("Something went wrong", err.message);
+        })
+        .finally(() => {
+          setIsLoading(false)
         });
     }
   }

@@ -10,6 +10,7 @@ import DeleteUser from "./pages/DeleteUser";
 
 const App = () => {
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState("");
 
   let token = localStorage.getItem("authToken");
@@ -71,18 +72,19 @@ const App = () => {
       </div>
 
       <Routes>
-        <Route path="/" element={<Home setUser={setUser} />} />
+        <Route path="/" element={<Home setUser={setUser} setIsLoading={setIsLoading} />} />
         <Route path="*" element={<NotFound />} />
         <Route element={<LoggedIn />}>
-          <Route path="/delete-user" element={<DeleteUser setUser={setUser} setMessage={setMessage} />} />
+          <Route path="/delete-user" element={<DeleteUser setUser={setUser} setMessage={setMessage} setIsLoading={setIsLoading} />} />
         </Route>
         <Route element={<NotLoggedIn />}>
-          <Route path="/signup" element={<SignUp setMessage={setMessage} />} />
-          <Route path="/login" element={<Login setMessage={setMessage} />} />
+          <Route path="/signup" element={<SignUp setMessage={setMessage} setIsLoading={setIsLoading} />} />
+          <Route path="/login" element={<Login setMessage={setMessage} setIsLoading={setIsLoading} />} />
         </Route>
       </Routes>
 
       {message && <p>{message}</p>}
+      {isLoading && <p>Loading...</p>}
     </div>
   );
 };
