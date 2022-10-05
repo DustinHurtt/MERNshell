@@ -1,16 +1,16 @@
-import React from "react";  
+import React from "react";
 
-const Password = (props) => {
+const Password = ({ setPassword }) => {
+  return (
+    <div>
+      <label>Password</label>
+      <input
+        type="password"
+        name="password"
+        onChange={(e) => setPassword(e.target.value)}
+      />
+    </div>
+  );
+};
 
-    return (
-
-        <div>
-            <label>Password</label>
-            <input type="password" name='password' onChange={(e)=>props.setPassword(e.target.value)} value={props.password}/>
-        </div>
-
-    )
-
-}
-
-export default Password
+export default Password;

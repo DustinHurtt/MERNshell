@@ -1,16 +1,15 @@
-import React from "react";  
+import React from "react";
 
-const Username = (props) => {
+const Username = ({ setUsername }) => {
+  return (
+    <div>
+      <label>Username</label>
+      <input
+        name="username"
+        onChange={(e) => setUsername(e.target.value)}
+      />
+    </div>
+  );
+};
 
-    return (
-
-        <div>
-            <label>Username</label>
-            <input name='username' onChange={(e)=>props.setUsername(e.target.value)} value={props.username}/>
-        </div>
-
-    )
-
-}
-
-export default Username
+export default Username;

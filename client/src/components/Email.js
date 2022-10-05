@@ -1,19 +1,15 @@
-import React from "react";  
+import React from "react";
 
-const Email = (props) => {
+const Email = ({ setEmail }) => {
+  return (
+    <div>
+      <label>Email</label>
+      <input
+        name="email"
+        onChange={(e) => setEmail(e.target.value)}
+      />
+    </div>
+  );
+};
 
-    return (
-
-        <div>
-            <label>Email</label>
-            <input name='email' onChange={(e)=>props.setEmail(e.target.value)} 
-            // value={props.email}
-
-            />
-        </div>
-
-    )
-
-}
-
-export default Email
+export default Email;

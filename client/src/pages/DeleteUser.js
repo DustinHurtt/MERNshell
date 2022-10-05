@@ -20,7 +20,7 @@ const DeleteUser = ({ setUser, setMessage, setIsLoading }) => {
         password: password,
       })
         .then((results) => {
-          setUser('')
+          setUser("");
           localStorage.clear();
           setMessage("user deleted");
           navigate("/");
@@ -29,10 +29,10 @@ const DeleteUser = ({ setUser, setMessage, setIsLoading }) => {
           console.log("Something went wrong", err.message);
         })
         .finally(() => {
-          setIsLoading(false)
+          setIsLoading(false);
         });
     }
-  }
+  };
 
   return (
     <div>
@@ -40,9 +40,7 @@ const DeleteUser = ({ setUser, setMessage, setIsLoading }) => {
       <form onSubmit={checkError}>
         <Password setPassword={setPassword} />
         <ConfirmPassword setConfirmPassword={setConfirmPassword} />
-
         <button type="submit">Submit</button>
-
       </form>
     </div>
   );
