@@ -66,7 +66,7 @@ router.post("/login", (req, res, next) => {
       );
 
       if (doesMatch) {
-        const payload = { _id: foundUser._id };
+        const payload = { _id: foundUser._id, username: foundUser.username };
 
         const token = jwt.sign(payload, process.env.SECRET, {
           algorithm: "HS256",

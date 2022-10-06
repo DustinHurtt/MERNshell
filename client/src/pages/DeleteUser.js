@@ -1,10 +1,15 @@
 import React from "react";
+import { useContext } from 'react';
+import { AuthContext } from "../contexts/auth.context";
 import Password from "../components/Password";
 import ConfirmPassword from "../components/ConfirmPassword";
 import { post } from "../authService/authService";
 import { useNavigate } from "react-router-dom";
 
-const DeleteUser = ({ setUser, setMessage, setIsLoading }) => {
+const DeleteUser = () => {
+
+  const { setIsLoading, setMessage, setUser } = useContext(AuthContext)
+
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
 
@@ -15,12 +20,13 @@ const DeleteUser = ({ setUser, setMessage, setIsLoading }) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setMessage("your password didn't match");
+      setIsLoading(false);
     } else {
       post("/users/delete-user", {
         password: password,
       })
         .then((results) => {
-          setUser("");
+          setUser(null);
           localStorage.clear();
           setMessage("user deleted");
           navigate("/");

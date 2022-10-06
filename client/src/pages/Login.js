@@ -1,12 +1,17 @@
 import React from "react";
+import { useContext } from 'react';
+import { AuthContext } from "../contexts/auth.context";
+import { useNavigate } from "react-router-dom";
+import { post } from "../authService/authService";
 
 import Username from "../components/Username";
 import Password from "../components/Password";
 
-import { post } from "../authService/authService";
-import { useNavigate } from "react-router-dom";
 
-const Login = ({ setMessage, setIsLoading }) => {
+const Login = () => {
+
+  const { authenticateUser, setIsLoading, setMessage } = useContext(AuthContext)
+
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -29,9 +34,10 @@ const Login = ({ setMessage, setIsLoading }) => {
       .catch((err) => {
         setMessage(err.response.data.message)
         console.log("Something went wrong", err.message);
+        setIsLoading(false);
       })
       .finally(() => {
-        setIsLoading(false)
+        authenticateUser();
       });
   }
 

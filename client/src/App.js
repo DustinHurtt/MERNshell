@@ -1,21 +1,20 @@
-import React, { useState } from "react";
 import "./App.css";
-
-import { Routes, Route, Link, useNavigate, Navigate, Outlet } from "react-router-dom";
+import React from "react";
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "./contexts/auth.context";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import NotFound from "./pages/NotFound";
 import DeleteUser from "./pages/DeleteUser";
+import Navbar from "./components/Navbar";
 
 const App = () => {
-  const [message, setMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [user, setUser] = useState("");
+
+  const { isLoading, message } = useContext(AuthContext)
 
   let token = localStorage.getItem("authToken");
-
-  const navigate = useNavigate();
 
   const LoggedIn = () => {
     return token ? <Outlet /> : <Navigate to="/" />;
@@ -25,66 +24,26 @@ const App = () => {
     return !token ? <Outlet /> : <Navigate to="/" />;
   };
 
-  const logout = () => {
-    localStorage.clear();
-    setMessage("You are logged out.");
-    setUser("");
-    navigate("/");
-  };
-
   return (
     <div>
-      <div className="navbar">
-        <header className="nav-wrapper">
-          <div className="nav-icon-container">
-            <Link to="/" className="nav-icon-image">
-              <img className="nav-icon" src={""} alt="appIcon" />
-            </Link>
 
-            <h2 className="nac-headline">Mern Shell</h2>
-          </div>
-          {user ? (
-            <nav className="nav-items">
-              <Link to="/" className="icon">
-                Home
-              </Link>
-              <Link to="/delete-user" className="icon">
-                Delete User
-              </Link>
-              <button onClick={logout} className="icon">
-                Logout
-              </button>
-            </nav>
-          ) : (
-            <nav className="nav-items">
-              <Link to="/" className="icon">
-                Home
-              </Link>
-              <Link to="/signup" className="icon">
-                Sign Up
-              </Link>
-              <Link to="/login" className="icon">
-                Log In
-              </Link>
-            </nav>
-          )}
-        </header>
-      </div>
+      <Navbar/>
 
       <Routes>
-        <Route path="/" element={<Home setUser={setUser} setIsLoading={setIsLoading} />} />
+        <Route path="/" element={<Home />} />
         <Route path="*" element={<NotFound />} />
         <Route element={<LoggedIn />}>
-          <Route path="/delete-user" element={<DeleteUser setUser={setUser} setMessage={setMessage} setIsLoading={setIsLoading} />} />
+          <Route path="/delete-user" element={<DeleteUser />} />
         </Route>
         <Route element={<NotLoggedIn />}>
-          <Route path="/signup" element={<SignUp setMessage={setMessage} setIsLoading={setIsLoading} />} />
-          <Route path="/login" element={<Login setMessage={setMessage} setIsLoading={setIsLoading} />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
         </Route>
       </Routes>
 
       {message && <p>{message}</p>}
       {isLoading && <p>Loading...</p>}
+      
     </div>
   );
 };
