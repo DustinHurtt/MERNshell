@@ -2,7 +2,7 @@ import React from "react";
 
 const ConfirmPassword = ({ setConfirmPassword }) => {
   return (
-    <div>
+    <div className="form-item">
       <label>Confirm Password</label>
       <input
         type="password"

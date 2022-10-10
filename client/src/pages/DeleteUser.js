@@ -41,7 +41,7 @@ const DeleteUser = () => {
   };
 
   return (
-    <div>
+    <div className="delete-user">
       <h1>This is Delete User</h1>
       <form onSubmit={checkError}>
         <Password setPassword={setPassword} />

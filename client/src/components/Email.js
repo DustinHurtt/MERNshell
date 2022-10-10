@@ -2,7 +2,7 @@ import React from "react";
 
 const Email = ({ setEmail }) => {
   return (
-    <div>
+    <div className="form-item">
       <label>Email</label>
       <input
         name="email"

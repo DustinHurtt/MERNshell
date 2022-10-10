@@ -2,7 +2,7 @@ import React from "react";
 
 const Password = ({ setPassword }) => {
   return (
-    <div>
+    <div className="form-item">
       <label>Password</label>
       <input
         type="password"

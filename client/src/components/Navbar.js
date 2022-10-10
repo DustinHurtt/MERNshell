@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/auth.context';
+import AppIcon from '../mernIcon.png'
 
 const Navbar = () => {
 
@@ -11,11 +12,10 @@ const Navbar = () => {
             <header className="nav-wrapper">
             <div className="nav-icon-container">
                 <Link to="/" className="nav-icon-image">
-                <img className="nav-icon" src={""} alt="appIcon" />
+                <img className="nav-icon" src={AppIcon} alt="appIcon" />
                 </Link>
-
-                <h2 className="nac-headline">Mern Shell</h2>
             </div>
+            <h2 className="nav-headline">Mern Shell</h2>
             {user ? (
                 <nav className="nav-items">
                 <Link to="/" className="icon">

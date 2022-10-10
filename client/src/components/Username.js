@@ -2,7 +2,7 @@ import React from "react";
 
 const Username = ({ setUsername }) => {
   return (
-    <div>
+    <div className="form-item">
       <label>Username</label>
       <input
         name="username"
