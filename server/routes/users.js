@@ -50,14 +50,14 @@ router.post("/signup", (req, res, next) => {
 });
 
 router.post("/login", (req, res, next) => {
-  if (!req.body.username || !req.body.password) {
+  if (!req.body.email || !req.body.password) {
     return res.status(400).json({ message: "please fill out both fields" });
   }
 
-  User.findOne({ username: req.body.username })
+  User.findOne({ email: req.body.email })
     .then((foundUser) => {
       if (!foundUser) {
-        return res.status(401).json({ message: "Username or Password is incorrect!!!" });
+        return res.status(401).json({ message: "Email or Password is incorrect!!!" });
       }
 
       const doesMatch = bcrypt.compareSync(
@@ -74,7 +74,7 @@ router.post("/login", (req, res, next) => {
         });
         res.json({ token: token, id: foundUser._id, message: `Welcome ${foundUser.username}` });
       } else {
-        return res.status(402).json({ message: "Username or Password is incorrect" });
+        return res.status(402).json({ message: "Email or Password is incorrect" });
       }
     })
     .catch((err) => {

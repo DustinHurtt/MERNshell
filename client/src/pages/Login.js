@@ -6,13 +6,14 @@ import { post } from "../authService/authService";
 
 import Username from "../components/Username";
 import Password from "../components/Password";
+import Email from "../components/Email";
 
 
 const Login = () => {
 
   const { authenticateUser, setIsLoading, setMessage } = useContext(AuthContext)
 
-  const [username, setUsername] = React.useState("");
+  const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Login = () => {
     e.preventDefault();
 
     post("/users/login", {
-      username: username,
+      email: email,
       password: password
     })
       .then((results) => {
@@ -45,7 +46,7 @@ const Login = () => {
     <div className="home-landing">
       <div className="home-container">
         <form onSubmit={submit}>
-          <Username setUsername={setUsername} />
+          <Email setEmail={setEmail} />
           <Password setPassword={setPassword} />
           <button>Submit</button>
         </form>
