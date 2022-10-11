@@ -4,10 +4,8 @@ import { AuthContext } from "../contexts/auth.context";
 import { useNavigate } from "react-router-dom";
 import { post } from "../authService/authService";
 
-import Username from "../components/Username";
 import Password from "../components/Password";
 import Email from "../components/Email";
-
 
 const Login = () => {
 
