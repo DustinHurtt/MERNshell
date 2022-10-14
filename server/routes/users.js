@@ -13,8 +13,8 @@ router.get("/", (req, res, next) => {
 });
 
 router.post("/signup", (req, res, next) => {
-  if (!req.body.username || !req.body.password) {
-    return res.status(400).json({ message: "please fill out both fields" });
+  if (!req.body.username || !req.body.email || !req.body.password) {
+    return res.status(400).json({ message: "please fill out all fields" });
   }
 
   User.findOne({ username: req.body.username })

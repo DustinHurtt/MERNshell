@@ -14,7 +14,7 @@ const Navbar = () => {
                 <img className="nav-icon" src="https://res.cloudinary.com/dt8b5pu9l/image/upload/v1665416973/mernIcon_hir4nl.png" alt="appIcon" />
                 </Link>
             </div>
-            <h2 className="nav-headline">Mern Shell</h2>
+            <h2 className="nav-headline">MERN Stack App</h2>
             {user ? (
                 <nav className="nav-items">
                 <Link to="/" className="icon">
