@@ -20,6 +20,9 @@ const Navbar = () => {
                 <Link to="/" className="icon">
                     Home
                 </Link>
+                <Link to="/items" className="icon">
+                    Items
+                </Link>
                 <Link to="/delete-user" className="icon">
                     Delete User
                 </Link>
@@ -31,6 +34,9 @@ const Navbar = () => {
                 <nav className="nav-items">
                 <Link to="/" className="icon">
                     Home
+                </Link>
+                <Link to="/items" className="icon">
+                    Items
                 </Link>
                 <Link to="/signup" className="icon">
                     Sign Up
