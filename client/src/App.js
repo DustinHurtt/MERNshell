@@ -32,16 +32,20 @@ const App = () => {
       <Navbar/>
 
       <Routes>
+      
         <Route path="/" element={<Home />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/items" element={<Items />} />
+
         <Route element={<LoggedIn />}>
           <Route path="/delete-user" element={<DeleteUser />} />
         </Route>
+
         <Route element={<NotLoggedIn />}>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
         </Route>
+
       </Routes>
 
       {message && <p>{message}</p>}
