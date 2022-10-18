@@ -11,9 +11,12 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    email: String,
+    email: {
+    type: String,
     required: true,
-    unique: true,
+    unique: true
+    },
+    items : [{ type: Schema.Types.ObjectId, ref: "Item" }]
   },
   {
     timeseries: true,

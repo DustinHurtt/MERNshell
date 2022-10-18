@@ -3,7 +3,8 @@ const { Schema, model } = require("mongoose");
 const itemSchema = new Schema(
   {
     name: String,
-    description: String
+    description: String,
+    contributor: { type: Schema.Types.ObjectId, ref: "User" }
   },
   {
     timeseries: true,
