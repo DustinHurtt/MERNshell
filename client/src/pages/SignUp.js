@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from "../contexts/auth.context";
 import { useNavigate } from "react-router-dom";
 import { post } from "../authService/authService";
@@ -12,10 +12,10 @@ const SignUp = () => {
 
   const { authenticateUser, setIsLoading, setMessage } = useContext(AuthContext)
 
-  const [username, setUsername] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const navigate = useNavigate();
 

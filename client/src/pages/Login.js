@@ -1,5 +1,4 @@
-import React from "react";
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from "../contexts/auth.context";
 import { useNavigate } from "react-router-dom";
 import { post } from "../authService/authService";
@@ -11,8 +10,8 @@ const Login = () => {
 
   const { authenticateUser, setIsLoading, setMessage } = useContext(AuthContext)
 
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
