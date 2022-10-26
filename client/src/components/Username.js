@@ -1,5 +1,3 @@
-import React from "react";
-
 const Username = ({ setUsername }) => {
   return (
     <div className="form-item">

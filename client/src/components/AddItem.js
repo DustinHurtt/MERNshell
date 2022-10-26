@@ -2,9 +2,9 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '../contexts/auth.context';
 import { post } from '../authService/authService';
 
-const AddItem = ({ addItem, setItem })=> {
+const AddItem = ({ addItem })=> {
 
-    const { setIsLoading, setMessage } = useContext(AuthContext);
+    const { setIsLoading, setMessage, user } = useContext(AuthContext);
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -18,14 +18,14 @@ const AddItem = ({ addItem, setItem })=> {
         e.preventDefault();
         const newItem = {
             name: name, 
-            description: description
+            description: description,
+            contributor: user._id
             }
         post("/items/add-item", newItem)
         .then((result) => {
             console.log(result.data)
             setIsLoading(false)
             addItem(newItem)
-            setItem(newItem)
             setMessage(`${name} has been added to Items.`)
         })
         .catch((err) => {

@@ -1,5 +1,3 @@
-import React from "react";
-
 const ConfirmPassword = ({ setConfirmPassword }) => {
   return (
     <div className="form-item">

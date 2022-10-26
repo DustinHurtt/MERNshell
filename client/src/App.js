@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import DeleteUser from "./pages/DeleteUser";
 import Navbar from "./components/Navbar";
 import Items from "./pages/Items";
+import MyItems from "./pages/MyItems";
 
 const App = () => {
 
@@ -39,6 +40,7 @@ const App = () => {
 
         <Route element={<LoggedIn />}>
           <Route path="/delete-user" element={<DeleteUser />} />
+          <Route path="/my-items" element={<MyItems />}/>
         </Route>
 
         <Route element={<NotLoggedIn />}>

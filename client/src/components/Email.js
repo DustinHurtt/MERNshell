@@ -1,5 +1,3 @@
-import React from "react";
-
 const Email = ({ setEmail }) => {
   return (
     <div className="form-item">
