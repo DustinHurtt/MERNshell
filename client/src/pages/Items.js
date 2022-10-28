@@ -45,10 +45,10 @@ const Items = () => {
 
         <div>
             <h1>This is the Items page.</h1>
-            
+
             {user &&
                 <div>
-                    <Link to='/my-items'>My Items</Link>
+                    <Link to={`/${user._id}/my-items`}>My Items</Link>
                     <AddItem addItem={addItem} />
                 </div>
             }

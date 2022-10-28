@@ -40,7 +40,7 @@ const App = () => {
 
         <Route element={<LoggedIn />}>
           <Route path="/delete-user" element={<DeleteUser />} />
-          <Route path="/my-items" element={<MyItems />}/>
+          <Route path="/:id/my-items" element={<MyItems />}/>
         </Route>
 
         <Route element={<NotLoggedIn />}>
