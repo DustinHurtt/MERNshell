@@ -37,4 +37,14 @@ router.post('/add-item', (req, res, next) => {
     })
 })
 
+router.get('/:id/this-item', (req, res, next) => {
+  Item.findById(req.params.id)
+    .then((item) => {
+      res.json(item)
+    })
+    .catch((err) => {
+      res.status(400).json(err.message);
+    })
+});
+
 module.exports = router;

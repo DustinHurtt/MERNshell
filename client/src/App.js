@@ -12,6 +12,8 @@ import DeleteUser from "./pages/DeleteUser";
 import Navbar from "./components/Navbar";
 import Items from "./pages/Items";
 import MyItems from "./pages/MyItems";
+import DeleteItem from "./pages/DeleteItem";
+import UpdateItem from "./pages/UpdateItem";
 
 const App = () => {
 
@@ -41,6 +43,8 @@ const App = () => {
         <Route element={<LoggedIn />}>
           <Route path="/delete-user" element={<DeleteUser />} />
           <Route path="/:id/my-items" element={<MyItems />}/>
+          <Route path="/:id/delete-item" element={<DeleteItem />}/>
+          <Route path="/:id/update-item" element={<UpdateItem />}/>
         </Route>
 
         <Route element={<NotLoggedIn />}>

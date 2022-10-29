@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../contexts/auth.context";
 import { get } from "../authService/authService";
 
@@ -8,9 +8,22 @@ import Item from "../components/Item";
 const MyItems = () => {
   const { setIsLoading, setMessage } = useContext(AuthContext);
 
+  const userPage = true;
+
   const params = useParams();
+  const navigate = useNavigate();
 
   const [myItems, setMyItems] = useState([]);
+
+  const handleDelete = (id) => {
+    console.log(id, "TARGET")
+    navigate(`/${id}/delete-item`)
+  }
+
+  const handleUpdate = (id) => {
+    console.log(id, "TARGET")
+    navigate(`/${id}/update-item`)
+  }
 
   const getItems = () => {
     // setIsLoading(true)
@@ -49,16 +62,12 @@ const MyItems = () => {
           <tr>
             <th>Name</th>
             <th>Description</th>
-            <th></th>
           </tr>
           {myItems.map((singleItem) => {
             return (
-              <Item singleItem={singleItem} />
+              <Item singleItem={singleItem} userPage={userPage} handleUpdate={() => handleUpdate(singleItem._id)} handleDelete={() => handleDelete(singleItem._id)}  />
               );
-          })}
-
-              {/* <td><button>Remove Item</button></td> */}
-          
+          })}         
         </table>
       )}
     </div>
