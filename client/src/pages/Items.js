@@ -1,18 +1,20 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/auth.context";
-import { get } from "../authService/authService";
+import { get, post } from "../authService/authService";
 
-import AddItem from "../components/AddItem";
+import ItemForm from "../components/ItemForm";
 import SearchBar from "../components/SearchBar";
 import Item from "../components/Item";
 import { Link } from "react-router-dom";
 
 const Items = () => {
 
-    const { setMessage, user } = useContext(AuthContext)
+    const { setIsLoading, setMessage, user } = useContext(AuthContext);
 
-    const [allItems, setAllItems] = useState([])
-    const [searchTerm, setSearchTerm] = useState('')
+    const [allItems, setAllItems] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [name, setName] = useState('');
+    const [description, setDescription] = ('')
     
     const addItem = (newItem) => {
         setAllItems([...allItems, newItem])
@@ -21,6 +23,33 @@ const Items = () => {
     const deleteItem = () => {
         // setMessage(`${item} has been removed from Items.`)
     }
+
+    const handleSubmit = (e) => {
+        setIsLoading(true)
+        e.preventDefault();
+        const newItem = {
+            name: name, 
+            description: description,
+            contributor: user._id
+            }
+        post("/items/add-item", newItem)
+        .then((result) => {
+            console.log(result.data)
+            setIsLoading(false)
+            addItem(newItem)
+            setMessage(`${name} has been added to Items.`)
+        })
+        .catch((err) => {
+            console.log(err.message)
+            setMessage(err.message)
+            setIsLoading(false)
+        })
+        .finally(() => {
+            setName('');
+            setDescription('');
+        })
+    }
+
 
     const filtered = !searchTerm
       ? allItems
@@ -49,7 +78,7 @@ const Items = () => {
             {user &&
                 <div>
                     <Link to={`/${user._id}/my-items`}>My Items</Link>
-                    <AddItem addItem={addItem} />
+                    <ItemForm addItem={addItem} onSubmit={handleSubmit} />
                 </div>
             }
 
