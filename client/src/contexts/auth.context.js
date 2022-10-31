@@ -9,6 +9,9 @@ const AuthProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [user, setUser] = useState(null);
     const [message, setMessage] = useState('');
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+
 
     const navigate = useNavigate();
 
@@ -53,7 +56,7 @@ const AuthProvider = ({ children }) => {
 
 
     return (
-        <AuthContext.Provider value={{ authenticateUser, isLoading, logout, message, user, setIsLoading, setMessage, setUser }}>
+        <AuthContext.Provider value={{ authenticateUser, description, isLoading, logout, message, name, user, setDescription, setIsLoading, setMessage, setName, setUser }}>
           {children}
         </AuthContext.Provider>
       );

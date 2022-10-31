@@ -9,12 +9,12 @@ import { Link } from "react-router-dom";
 
 const Items = () => {
 
-    const { setIsLoading, setMessage, user } = useContext(AuthContext);
+    const { description, name, setDescription, setIsLoading, setMessage, setName, user } = useContext(AuthContext);
 
     const [allItems, setAllItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [name, setName] = useState('');
-    const [description, setDescription] = ('')
+    // const [name, setName] = useState('');
+    // const [description, setDescription] = ('')
     
     const addItem = (newItem) => {
         setAllItems([...allItems, newItem])
@@ -25,6 +25,7 @@ const Items = () => {
     }
 
     const handleSubmit = (e) => {
+        console.log("Submitted")
         setIsLoading(true)
         e.preventDefault();
         const newItem = {
@@ -60,6 +61,8 @@ const Items = () => {
       
 
     useEffect(() => {
+        setDescription('');
+        setName('');
         get("/items", )
         .then((results) => {
             setAllItems(results.data.items)
@@ -78,7 +81,7 @@ const Items = () => {
             {user &&
                 <div>
                     <Link to={`/${user._id}/my-items`}>My Items</Link>
-                    <ItemForm addItem={addItem} onSubmit={handleSubmit} />
+                    <ItemForm buttonName={'Add Item'} handleSubmit={handleSubmit} />
                 </div>
             }
 

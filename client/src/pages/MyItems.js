@@ -35,7 +35,7 @@ const MyItems = () => {
       })
       .catch((err) => {
         console.log(err, "THERE HAS BEEN AN ERROR");
-      });
+      })
     // .finally(() => {
     //   setIsLoading(false)
     // })
@@ -51,7 +51,15 @@ const MyItems = () => {
   };
 
   useEffect(() => {
-    getItems();
+    // setIsLoading(true)
+    getItems()
+    // .then((result) => {
+    //   console.log(result)
+    //   setIsLoading(false)
+    // })
+    // .catch(() => {
+    //   setIsLoading(false)
+    // });
   }, []);
 
   return (

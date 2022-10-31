@@ -2,12 +2,12 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '../contexts/auth.context';
 import { post } from '../authService/authService';
 
-const ItemForm = ({ addItem })=> {
+const ItemForm = ({ addItem, buttonName, handleSubmit })=> {
 
-    const { setIsLoading, setMessage, user } = useContext(AuthContext);
+    const { description, name, setDescription, setIsLoading, setMessage, setName, user } = useContext(AuthContext);
 
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
+    // const [name, setName] = useState('');
+    // const [description, setDescription] = useState('');
 
 
     const handleNameInput = (e) => setName(e.target.value)
@@ -41,21 +41,21 @@ const ItemForm = ({ addItem })=> {
 
   return (
     <form 
-    // onSubmit={handleSubmit}
+    onSubmit={handleSubmit}
     >
       <p>Add New Item</p>
 
       <label>Name</label>
       <input 
-      // value={name} 
+      value={name} 
       type="text" onChange={handleNameInput} />
 
       <label>Description</label>
       <input 
-      // value={description} 
+      value={description} 
       type="text" onChange={handleDescriptionInput} />
 
-      <button type="submit">Add Item</button>
+      <button type="submit">{buttonName}</button>
     </form>
   );
 }
