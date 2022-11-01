@@ -6,7 +6,7 @@ import { get } from "../authService/authService";
 import Item from "../components/Item";
 
 const MyItems = () => {
-  const { setIsLoading, setMessage } = useContext(AuthContext);
+  const { isLoading, setIsLoading, setMessage } = useContext(AuthContext);
 
   const userPage = true;
 
@@ -26,7 +26,7 @@ const MyItems = () => {
   }
 
   const getItems = () => {
-    // setIsLoading(true)
+    // setIsLoading(!isLoading)
     get(`/items/${params.id}/my-items`)
       .then((results) => {
         console.log(results, "RESULTS");
@@ -35,10 +35,11 @@ const MyItems = () => {
       })
       .catch((err) => {
         console.log(err, "THERE HAS BEEN AN ERROR");
+        // setIsLoading(false)
       })
-    // .finally(() => {
-    //   setIsLoading(false)
-    // })
+    .finally(() => {
+      // setIsLoading(false)
+    })
     // .then((results) => {
     //     // console.log(results.data.myItems, "Results")
     //     // setMyItems(results.data.myItems)
@@ -51,8 +52,21 @@ const MyItems = () => {
   };
 
   useEffect(() => {
-    // setIsLoading(true)
+    // setIsLoading(!isLoading)
     getItems()
+    // get(`/items/${params.id}/my-items`)
+    // .then((results) => {
+    //   console.log(results, "RESULTS");
+    //   setMyItems(results.data.myItems);
+    //   // setIsLoading(false)
+    // })
+    // .catch((err) => {
+    //   console.log(err, "THERE HAS BEEN AN ERROR");
+    //   setIsLoading(false)
+    // })
+    // .finally(() => {
+    //   setIsLoading(false)
+    // })
     // .then((result) => {
     //   console.log(result)
     //   setIsLoading(false)

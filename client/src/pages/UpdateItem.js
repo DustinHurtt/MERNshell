@@ -1,14 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../contexts/auth.context";
-import { get } from "../authService/authService";
+import { get, post } from "../authService/authService";
 import ItemForm from "../components/ItemForm";
 
 const UpdateItem = () => {
 
     const [item, setItem] = useState(null)
 
-    const { setDescription, setIsLoading, setName } = useContext(AuthContext);
+    const { description, name, setDescription, setIsLoading, setName } = useContext(AuthContext);
 
     const params = useParams();
 
@@ -33,6 +33,24 @@ const UpdateItem = () => {
         // })
     }
 
+    const submitUpdate = (e) => {
+      e.preventDefault();
+        post(`/items/${params.id}/update-item`, {
+          name: name,
+          description: description
+        })
+        .then((results) => {
+          console.log(results)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+        .finally(() => {
+          setDescription('')
+          setName('');
+        })
+    }
+
     useEffect(() => {
         getItem()
     }, [])
@@ -40,7 +58,7 @@ const UpdateItem = () => {
     return (
       <div>
         <h1>Update Item</h1>
-        {item && <ItemForm buttonName={'Update Item'} />}
+        {item && <ItemForm buttonName={'Update Item'} handleSubmit={submitUpdate} />} 
 
         {/* <p>{item.name}</p> */}
       </div>

@@ -47,4 +47,14 @@ router.get('/:id/this-item', (req, res, next) => {
     })
 });
 
+router.post('/:id/update-item', (req, res, next) => {
+  Item.findByIdAndUpdate(req.params.id, {...req.body})
+    .then((item) => {
+      res.json(item)
+    })
+    .catch((err) => {
+      res.status(400).json(err.message);
+    })
+});
+
 module.exports = router;
