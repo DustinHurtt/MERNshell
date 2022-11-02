@@ -6,7 +6,7 @@ import { get } from "../authService/authService";
 import Item from "../components/Item";
 
 const MyItems = () => {
-  const { isLoading, setIsLoading, setMessage } = useContext(AuthContext);
+  const { isLoading, setDescription, setIsLoading, setName, setMessage } = useContext(AuthContext);
 
   const userPage = true;
 
@@ -22,7 +22,22 @@ const MyItems = () => {
 
   const handleUpdate = (id) => {
     console.log(id, "TARGET")
-    navigate(`/${id}/update-item`)
+    get(`/items/${id}/this-item`)
+    .then((results) => {
+      console.log(results, "RESULTS");
+      // setItem(results.data);
+      setDescription(results.data.description);
+      setName(results.data.name);
+      // setIsLoading(false)
+    })
+    .catch((err) => {
+      console.log(err, "THERE HAS BEEN AN ERROR");
+      // setIsLoading(false)
+    })
+    .finally(() => {
+
+      navigate(`/${id}/update-item`)
+    })
   }
 
   const getItems = () => {

@@ -10,7 +10,11 @@ const ItemForm = ({ addItem, buttonName, handleSubmit })=> {
     // const [description, setDescription] = useState('');
 
 
-    const handleNameInput = (e) => setName(e.target.value)
+    const handleNameInput = (e) => {
+      e.preventDefault()
+      setName(e.target.value)
+      // e.onChange(e.target.value)
+    }
     const handleDescriptionInput = (e) => setDescription(e.target.value)
 
     // const handleSubmit = (e) => {
@@ -48,7 +52,7 @@ const ItemForm = ({ addItem, buttonName, handleSubmit })=> {
       <label>Name</label>
       <input 
       value={name} 
-      type="text" onChange={handleNameInput} />
+      type="text" onChange={(e)=>handleNameInput(e)} />
 
       <label>Description</label>
       <input 
