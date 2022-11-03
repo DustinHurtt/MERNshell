@@ -22,22 +22,22 @@ const MyItems = () => {
 
   const handleUpdate = (id) => {
     console.log(id, "TARGET")
-    get(`/items/${id}/this-item`)
-    .then((results) => {
-      console.log(results, "RESULTS");
-      // setItem(results.data);
-      setDescription(results.data.description);
-      setName(results.data.name);
-      // setIsLoading(false)
-    })
-    .catch((err) => {
-      console.log(err, "THERE HAS BEEN AN ERROR");
-      // setIsLoading(false)
-    })
-    .finally(() => {
+    // get(`/items/${id}/this-item`)
+    // .then((results) => {
+    //   console.log(results, "RESULTS");
+    //   // setItem(results.data);
+    //   setDescription(results.data.description);
+    //   setName(results.data.name);
+    //   // setIsLoading(false)
+    // })
+    // .catch((err) => {
+    //   console.log(err, "THERE HAS BEEN AN ERROR");
+    //   // setIsLoading(false)
+    // })
+    // .finally(() => {
 
       navigate(`/${id}/update-item`)
-    })
+    // })
   }
 
   const getItems = () => {

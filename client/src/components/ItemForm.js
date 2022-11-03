@@ -11,9 +11,10 @@ const ItemForm = ({ addItem, buttonName, handleSubmit })=> {
 
 
     const handleNameInput = (e) => {
-      e.preventDefault()
+      // e.preventDefault()
       setName(e.target.value)
       // e.onChange(e.target.value)
+      console.log(name, "This is the name as it changes...")
     }
     const handleDescriptionInput = (e) => setDescription(e.target.value)
 

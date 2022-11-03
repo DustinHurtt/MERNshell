@@ -18,21 +18,21 @@ const UpdateItem = () => {
 
       // setIsLoading(true);
 
-        // get(`/items/${params.id}/this-item`)
-        // .then((results) => {
-        //   console.log(results, "RESULTS");
-        //   setItem(results.data);
-        //   setName(results.data.name);
-        //   setDescription(results.data.description);
-        //   // setIsLoading(false)
-        // })
-        // .catch((err) => {
-        //   console.log(err, "THERE HAS BEEN AN ERROR");
-        //   // setIsLoading(false)
-        // })
-        // .finally(() => {
-        //   setIsLoading(false)
-        // })
+        get(`/items/${params.id}/this-item`)
+        .then((results) => {
+          console.log(results, "RESULTS");
+          setItem(results.data);
+          setName(results.data.name);
+          setDescription(results.data.description);
+          // setIsLoading(false)
+        })
+        .catch((err) => {
+          console.log(err, "THERE HAS BEEN AN ERROR");
+          // setIsLoading(false)
+        })
+        .finally(() => {
+          // setIsLoading(false)
+        })
     }
 
     const submitUpdate = (e) => {
@@ -53,15 +53,15 @@ const UpdateItem = () => {
         // })
     }
 
-    // useEffect(() => {
-    //     getItem()
-    // }, [])
+    useEffect(() => {
+        getItem()
+    }, [])
 
     return (
       <div>
         <h1>Update Item</h1>
-        {/* {item && <ItemForm buttonName={'Update Item'} handleSubmit={submitUpdate} />}  */}
-        <ItemForm buttonName={'Update Item'} handleSubmit={submitUpdate} />
+        {item && <ItemForm buttonName={'Update Item'} handleSubmit={submitUpdate} />} 
+        {/* <ItemForm buttonName={'Update Item'} handleSubmit={submitUpdate} /> */}
         {/* <p>{item.name}</p> */}
       </div>
     );
