@@ -5,10 +5,15 @@ import { post } from "../authService/authService";
 
 import Password from "../components/Password";
 import Email from "../components/Email";
+import { LoadingContext } from '../contexts/load.context';
 
 const Login = () => {
 
-  const { authenticateUser, setIsLoading, setMessage } = useContext(AuthContext)
+  const { authenticateUser
+    // , setIsLoading, setMessage
+   } = useContext(AuthContext)
+
+   const { setIsLoading, setMessage } = useContext(LoadingContext)
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

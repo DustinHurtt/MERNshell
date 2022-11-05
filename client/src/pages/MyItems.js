@@ -1,12 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../contexts/auth.context";
+import { LoadingContext } from "../contexts/load.context";
 import { get } from "../authService/authService";
 
 import Item from "../components/Item";
 
 const MyItems = () => {
-  const { isLoading, setDescription, setIsLoading, setName, setMessage } = useContext(AuthContext);
+  const { isLoading, setDescription, setIsLoading, setName, setMessage } = useContext(LoadingContext);
 
   const userPage = true;
 

@@ -7,10 +7,15 @@ import ConfirmPassword from "../components/ConfirmPassword";
 import Email from "../components/Email";
 import Password from "../components/Password";
 import Username from "../components/Username";
+import { LoadingContext } from "../contexts/load.context";
 
 const SignUp = () => {
 
-  const { authenticateUser, setIsLoading, setMessage } = useContext(AuthContext)
+  const { authenticateUser
+    // , setIsLoading, setMessage
+   } = useContext(AuthContext)
+
+   const { setIsLoading, setMessage } = useContext(LoadingContext)
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");

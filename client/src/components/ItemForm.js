@@ -1,10 +1,11 @@
 import { useContext, useState } from 'react';
 import { AuthContext } from '../contexts/auth.context';
+import { LoadingContext } from '../contexts/load.context';
 import { post } from '../authService/authService';
 
 const ItemForm = ({ addItem, buttonName, handleSubmit })=> {
 
-    const { description, name, setDescription, setIsLoading, setMessage, setName, user } = useContext(AuthContext);
+    const { description, name, setDescription, setIsLoading, setMessage, setName, user } = useContext(LoadingContext);
 
     // const [name, setName] = useState('');
     // const [description, setDescription] = useState('');
@@ -13,9 +14,16 @@ const ItemForm = ({ addItem, buttonName, handleSubmit })=> {
     const handleNameInput = (e) => {
       // e.preventDefault()
       setName(e.target.value)
+      // setTimeout(() => { 
+      //   console.log(e.target.value, "THISSA")
+      //   setName(e.target.value) 
+      // }, 300)
       // e.onChange(e.target.value)
       console.log(name, "This is the name as it changes...")
     }
+
+    
+
     const handleDescriptionInput = (e) => setDescription(e.target.value)
 
     // const handleSubmit = (e) => {
@@ -52,11 +60,13 @@ const ItemForm = ({ addItem, buttonName, handleSubmit })=> {
 
       <label>Name</label>
       <input 
+      name="name"
       value={name} 
       type="text" onChange={(e)=>handleNameInput(e)} />
 
       <label>Description</label>
-      <input 
+      <input
+      name="description" 
       value={description} 
       type="text" onChange={handleDescriptionInput} />
 

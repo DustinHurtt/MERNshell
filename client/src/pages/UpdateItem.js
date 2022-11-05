@@ -1,39 +1,41 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { AuthContext } from "../contexts/auth.context";
+import { LoadingContext } from "../contexts/load.context";
 import { get, post } from "../authService/authService";
 import ItemForm from "../components/ItemForm";
 
 const UpdateItem = () => {
 
-    const [item, setItem] = useState(null)
+    // const [item, setItem] = useState(null)
 
     const { 
       // description, name, 
-      setDescription, setIsLoading, setName } = useContext(AuthContext);
+      getItem, item 
+      // setDescription, setIsLoading, setName 
+    } = useContext(LoadingContext);
 
     const params = useParams();
 
-    const getItem = () => {
+    // const getItem = () => {
 
-      // setIsLoading(true);
+    //   setIsLoading(true);
 
-        get(`/items/${params.id}/this-item`)
-        .then((results) => {
-          console.log(results, "RESULTS");
-          setItem(results.data);
-          setName(results.data.name);
-          setDescription(results.data.description);
-          // setIsLoading(false)
-        })
-        .catch((err) => {
-          console.log(err, "THERE HAS BEEN AN ERROR");
-          // setIsLoading(false)
-        })
-        .finally(() => {
-          // setIsLoading(false)
-        })
-    }
+    //     get(`/items/${params.id}/this-item`)
+    //     .then((results) => {
+    //       console.log(results, "RESULTS");
+    //       setItem(results.data);
+    //       setName(results.data.name);
+    //       setDescription(results.data.description);
+    //       // setIsLoading(false)
+    //     })
+    //     .catch((err) => {
+    //       console.log(err, "THERE HAS BEEN AN ERROR");
+    //       setIsLoading(false)
+    //     })
+    //     .finally(() => {
+    //       setIsLoading(false)
+    //     })
+    // }
 
     const submitUpdate = (e) => {
       e.preventDefault();
@@ -53,8 +55,10 @@ const UpdateItem = () => {
         // })
     }
 
+    
+
     useEffect(() => {
-        getItem()
+        getItem(params.id)
     }, [])
 
     return (

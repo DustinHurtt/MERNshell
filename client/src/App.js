@@ -14,10 +14,11 @@ import Items from "./pages/Items";
 import MyItems from "./pages/MyItems";
 import DeleteItem from "./pages/DeleteItem";
 import UpdateItem from "./pages/UpdateItem";
+import { LoadingContext } from "./contexts/load.context";
 
 const App = () => {
 
-  const { isLoading, message } = useContext(AuthContext)
+  const { isLoading, message } = useContext(LoadingContext)
 
   let token = localStorage.getItem("authToken");
 

@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/auth.context";
 import { get, post } from "../authService/authService";
 
+import { LoadingContext } from "../contexts/load.context";
+
 import ItemForm from "../components/ItemForm";
 import SearchBar from "../components/SearchBar";
 import Item from "../components/Item";
@@ -9,7 +11,7 @@ import { Link } from "react-router-dom";
 
 const Items = () => {
 
-    const { description, name, setDescription, setIsLoading, setMessage, setName, user } = useContext(AuthContext);
+    const { description, name, setDescription, setIsLoading, setMessage, setName, user } = useContext(LoadingContext);
 
     const [allItems, setAllItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');

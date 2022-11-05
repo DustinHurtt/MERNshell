@@ -1,16 +1,19 @@
-import { useEffect, useState, createContext } from "react";
+import { useEffect, useState, createContext, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { get } from "../authService/authService";
+import { get } from "../authService/authService"
+import { LoadingContext } from "./load.context";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [user, setUser] = useState(null);
-    const [message, setMessage] = useState('');
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
+    const { setIsLoading, setUser, setMessage} = useContext(LoadingContext)
+
+    // const [isLoading, setIsLoading] = useState(false);
+    // const [user, setUser] = useState(null);
+    // const [message, setMessage] = useState('');
+    // const [name, setName] = useState('');
+    // const [description, setDescription] = useState('');
 
 
     const navigate = useNavigate();
@@ -56,7 +59,11 @@ const AuthProvider = ({ children }) => {
 
 
     return (
-        <AuthContext.Provider value={{ authenticateUser, description, isLoading, logout, message, name, user, setDescription, setIsLoading, setMessage, setName, setUser }}>
+        <AuthContext.Provider value={{ authenticateUser, 
+        // description, isLoading, 
+        logout
+        // , message, name, user, setDescription, setIsLoading, setMessage, setName, setUser 
+        }}>
           {children}
         </AuthContext.Provider>
       );
