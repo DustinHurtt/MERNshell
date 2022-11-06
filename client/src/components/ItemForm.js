@@ -2,24 +2,29 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '../contexts/auth.context';
 import { LoadingContext } from '../contexts/load.context';
 import { post } from '../authService/authService';
+import Input from './Input';
 
-const ItemForm = ({ addItem, buttonName, handleSubmit })=> {
+const ItemForm = ({ addItem, buttonName, handleSubmit
+  // , item 
+})=> {
 
-    const { description, name, setDescription, setIsLoading, setMessage, setName, user } = useContext(LoadingContext);
+    const { description, 
+      item, 
+      name, setItem, setDescription, setIsLoading, setMessage, setName, user } = useContext(LoadingContext);
 
     // const [name, setName] = useState('');
     // const [description, setDescription] = useState('');
 
 
-    const handleNameInput = (e) => {
+    const handleChange = (e) => {
       // e.preventDefault()
-      setName(e.target.value)
+      setItem((recent) => ({ ...recent, [e.target.name]: e.target.value}))
       // setTimeout(() => { 
       //   console.log(e.target.value, "THISSA")
       //   setName(e.target.value) 
       // }, 300)
       // e.onChange(e.target.value)
-      console.log(name, "This is the name as it changes...")
+      console.log(item, "This is item as it changes")
     }
 
     
@@ -54,21 +59,28 @@ const ItemForm = ({ addItem, buttonName, handleSubmit })=> {
 
   return (
     <form 
+    key="item form"
     onSubmit={handleSubmit}
     >
       <p>Add New Item</p>
 
       <label>Name</label>
-      <input 
+      <Input key={'name'} name={"name"} value={item.name} onChange={handleChange} />
+      {/* <input 
+
+      key="name"
       name="name"
-      value={name} 
-      type="text" onChange={(e)=>handleNameInput(e)} />
+      value={item.name} 
+      type="text" onChange={handleChange} /> */}
 
       <label>Description</label>
-      <input
+      <Input key={'description'} name={"description"} value={item.description} onChange={handleChange}/>
+      {/* <input
+
+      key="description"
       name="description" 
-      value={description} 
-      type="text" onChange={handleDescriptionInput} />
+      value={item.description} 
+      type="text" onChange={handleChange} /> */}
 
       <button type="submit">{buttonName}</button>
     </form>

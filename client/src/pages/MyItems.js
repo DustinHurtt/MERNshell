@@ -7,22 +7,43 @@ import { get } from "../authService/authService";
 import Item from "../components/Item";
 
 const MyItems = () => {
-  const { isLoading, setDescription, setIsLoading, setName, setMessage } = useContext(LoadingContext);
+  const { isLoading, setDescription, setIsLoading, setName, setMessage, setItems, items, setItem } = useContext(LoadingContext);
 
   const userPage = true;
 
   const params = useParams();
   const navigate = useNavigate();
 
-  const [myItems, setMyItems] = useState([]);
+  // const [myItems, setMyItems] = useState([]);
 
   const handleDelete = (id) => {
     console.log(id, "TARGET")
     navigate(`/${id}/delete-item`)
   }
 
+
+//   const thisItem = items.find((item) => item._id === params.id)
+//   // }, [])
+//   // const item 
+//   useEffect(() => {
+//     // if (!item) {
+//     //   getItem(params.id)
+//     console.log(thisItem, "THIS IS THE ITEM")
+//     setItem(thisItem)
+//     // } 
+
+// console.log(items, "these are the items")
+
+//     // else {
+//     // setName(thisItem.name)
+//     // setDescription(thisItem.description)
+//   // }
+//   }, [])
   const handleUpdate = (id) => {
+    const thisItem = items.find((item) => item._id === id)
+    setItem(thisItem)
     console.log(id, "TARGET")
+    console.log(thisItem, "This is the ITEM from the button")
     // get(`/items/${id}/this-item`)
     // .then((results) => {
     //   console.log(results, "RESULTS");
@@ -41,74 +62,97 @@ const MyItems = () => {
     // })
   }
 
-  const getItems = () => {
-    // setIsLoading(!isLoading)
-    get(`/items/${params.id}/my-items`)
-      .then((results) => {
-        console.log(results, "RESULTS");
-        setMyItems(results.data.myItems);
-        // setIsLoading(false)
-      })
-      .catch((err) => {
-        console.log(err, "THERE HAS BEEN AN ERROR");
-        // setIsLoading(false)
-      })
-    .finally(() => {
-      // setIsLoading(false)
-    })
-    // .then((results) => {
-    //     // console.log(results.data.myItems, "Results")
-    //     // setMyItems(results.data.myItems)
-    //     setIsLoading(false)
-    // })
-    // .catch((err) => {
-    //     setMessage(err)
-    //     console.log(err)
-    // })
-  };
+  // const getItems = () => {
+  //   // setIsLoading(!isLoading)
+  //   !items &&
+  //   get(`/items/${params.id}/my-items`)
+  //     .then((results) => {
+  //       console.log(results, "RESULTS");
+  //       setMyItems(results.data.myItems);
+  //       setItems(results.data.myItems);
+  //       // setIsLoading(false)
+  //     })
+  //     .catch((err) => {
+  //       console.log(err, "THERE HAS BEEN AN ERROR");
+  //       // setIsLoading(false)
+  //     })
+  //   .finally(() => {
+  //     // setIsLoading(false)
+  //   })
+  //   // .then((results) => {
+  //   //     // console.log(results.data.myItems, "Results")
+  //   //     // setMyItems(results.data.myItems)
+  //   //     setIsLoading(false)
+  //   // })
+  //   // .catch((err) => {
+  //   //     setMessage(err)
+  //   //     console.log(err)
+  //   // })
+  // };
+
+  // useEffect(() => {
+  //   // setIsLoading(!isLoading)
+  //   //  getItems()
+  //   // get(`/items/${params.id}/my-items`)
+  //   // .then((results) => {
+  //   //   console.log(results, "RESULTS");
+  //   //   setMyItems(results.data.myItems);
+  //   //   // setIsLoading(false)
+  //   // })
+  //   // .catch((err) => {
+  //   //   console.log(err, "THERE HAS BEEN AN ERROR");
+  //   //   setIsLoading(false)
+  //   // })
+  //   // .finally(() => {
+  //   //   setIsLoading(false)
+  //   // })
+  //   // .then((result) => {
+  //   //   console.log(result)
+  //   //   setIsLoading(false)
+  //   // })
+  //   // .catch(() => {
+  //   //   setIsLoading(false)
+  //   // });
+  // }, []);
 
   useEffect(() => {
-    // setIsLoading(!isLoading)
-    getItems()
-    // get(`/items/${params.id}/my-items`)
-    // .then((results) => {
-    //   console.log(results, "RESULTS");
-    //   setMyItems(results.data.myItems);
-    //   // setIsLoading(false)
-    // })
-    // .catch((err) => {
-    //   console.log(err, "THERE HAS BEEN AN ERROR");
-    //   setIsLoading(false)
-    // })
-    // .finally(() => {
-    //   setIsLoading(false)
-    // })
-    // .then((result) => {
-    //   console.log(result)
-    //   setIsLoading(false)
-    // })
-    // .catch(() => {
-    //   setIsLoading(false)
-    // });
-  }, []);
+    console.log(items, "THESE ARE THE ITEMS ON THE MY ITEMS PAGE")
+  }, [])
 
   return (
     <div>
       <h2>My Items</h2>
-      {!!myItems.length && (
+
         <table>
           <tr>
             <th>Name</th>
             <th>Description</th>
           </tr>
-          {myItems.map((singleItem) => {
+          {items.map((singleItem) => {
             return (
               <Item singleItem={singleItem} userPage={userPage} handleUpdate={() => handleUpdate(singleItem._id)} handleDelete={() => handleDelete(singleItem._id)}  />
               );
           })}         
         </table>
-      )}
+
     </div>
+
+    // {/* <div>
+    //   <h2>My Items</h2>
+    //   {!!items.length && (
+    //     <table>
+    //       <tr>
+    //         <th>Name</th>
+    //         <th>Description</th>
+    //       </tr>
+    //       {items.map((singleItem) => {
+    //         return (
+    //           <Item singleItem={singleItem} userPage={userPage} handleUpdate={() => handleUpdate(singleItem._id)} handleDelete={() => handleDelete(singleItem._id)}  />
+    //           );
+    //       })}         
+    //     </table>
+    //   )}
+    // </div> */}
   );
 };
   

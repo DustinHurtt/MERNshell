@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 const Items = () => {
 
-    const { description, name, setDescription, setIsLoading, setMessage, setName, user } = useContext(LoadingContext);
+    const { description, name, setDescription, setIsLoading, setMessage, setName, user, setItems, item } = useContext(LoadingContext);
 
     const [allItems, setAllItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -53,6 +53,12 @@ const Items = () => {
         })
     }
 
+    const getMyItems = (() => {
+        const myItems = allItems.filter((item => item.contributor.includes(user._id)))
+        setItems(myItems)
+        console.log(myItems, "these are my Items")
+    })
+
 
     const filtered = !searchTerm
       ? allItems
@@ -63,11 +69,13 @@ const Items = () => {
       
 
     useEffect(() => {
+        console.log(user, "this is the user")
         setDescription('');
         setName('');
         get("/items", )
         .then((results) => {
             setAllItems(results.data.items)
+            console.log(results.data.items, "These are all items")
         })
         .catch((err) => {
             setMessage(err)
@@ -82,8 +90,10 @@ const Items = () => {
 
             {user &&
                 <div>
-                    <Link to={`/${user._id}/my-items`}>My Items</Link>
-                    <ItemForm buttonName={'Add Item'} handleSubmit={handleSubmit} />
+                    <Link  onClick={getMyItems} to={`/${user._id}/my-items`}>My Items</Link>
+                    <ItemForm 
+                    // item={item} 
+                    buttonName={'Add Item'} handleSubmit={handleSubmit} />
                 </div>
             }
 

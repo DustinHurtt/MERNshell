@@ -3,15 +3,22 @@ import { useParams } from "react-router-dom";
 import { LoadingContext } from "../contexts/load.context";
 import { get, post } from "../authService/authService";
 import ItemForm from "../components/ItemForm";
+import { AuthContext } from "../contexts/auth.context";
 
 const UpdateItem = () => {
 
     // const [item, setItem] = useState(null)
 
+    // const { user } = useContext(AuthContext)
+
+
     const { 
-      // description, name, 
-      getItem, item 
-      // setDescription, setIsLoading, setName 
+      // description, name,
+      user,
+      setItem,
+      items,
+      getItem, item, 
+      setDescription, setIsLoading, setName 
     } = useContext(LoadingContext);
 
     const params = useParams();
@@ -56,17 +63,47 @@ const UpdateItem = () => {
     }
 
     
+ 
+    
 
-    useEffect(() => {
-        getItem(params.id)
-    }, [])
+    // useEffect(() => {
+    //   if (!item) {
+    //     getItem(params.id)
+    //   } 
+
+
+    //   else {
+      //   setName(item.name)
+      //   setDescription(item.description)}
+//       const thisItem = items.find((item) => item._id === params.id)
+//     // }, [])
+//     // const item 
+//     useEffect(() => {
+//       // if (!item) {
+//       //   getItem(params.id)
+//       console.log(thisItem, "THIS IS THE ITEM")
+//       setItem(thisItem)
+//       // } 
+
+// console.log(items, "these are the items")
+
+//       // else {
+//       // setName(thisItem.name)
+//       // setDescription(thisItem.description)
+//     // }
+//     }, [])
 
     return (
       <div>
         <h1>Update Item</h1>
-        {item && <ItemForm buttonName={'Update Item'} handleSubmit={submitUpdate} />} 
-        {/* <ItemForm buttonName={'Update Item'} handleSubmit={submitUpdate} /> */}
+        {/* {item && <ItemForm buttonName={'Update Item'} handleSubmit={submitUpdate} />}  */}
+        <div>
+
+        {user &&
+        <ItemForm  buttonName={'Update Item'} handleSubmit={submitUpdate} />}
         {/* <p>{item.name}</p> */}
+
+        </div>
       </div>
     );
   };
