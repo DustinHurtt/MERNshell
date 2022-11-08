@@ -7,7 +7,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 
-    const { setIsLoading, setUser, setMessage} = useContext(LoadingContext)
+    const { setVerifiedToken, setIsLoading, setUser, setMessage} = useContext(LoadingContext)
 
     // const [isLoading, setIsLoading] = useState(false);
     // const [user, setUser] = useState(null);
@@ -29,7 +29,8 @@ const AuthProvider = ({ children }) => {
                 .then((results) => {
                     console.log("Are we logged in?", results.data);
                     setUser(results.data)
-                
+                    
+                    setVerifiedToken(token)
                 })
                 .catch((err) => {
                     localStorage.clear();
@@ -40,8 +41,10 @@ const AuthProvider = ({ children }) => {
                     setIsLoading(false)
                 });
             } else {
+
                 setIsLoading(false);
                 setUser(null);
+                setVerifiedToken(null)
             }
     }
 
@@ -49,6 +52,7 @@ const AuthProvider = ({ children }) => {
         localStorage.clear();
         setMessage("You are logged out.");
         setUser(null);
+        setVerifiedToken(null)
         navigate("/");
       };
 

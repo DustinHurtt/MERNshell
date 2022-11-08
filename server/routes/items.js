@@ -48,7 +48,8 @@ router.get('/:id/this-item', (req, res, next) => {
 });
 
 router.post('/:id/update-item', (req, res, next) => {
-  Item.findByIdAndUpdate(req.params.id, {...req.body})
+  console.log(req.body, "this is req.body")
+  Item.findByIdAndUpdate(req.params.id, {...req.body.item})
     .then((item) => {
       res.json(item)
     })

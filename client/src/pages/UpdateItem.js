@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { LoadingContext } from "../contexts/load.context";
 import { get, post } from "../authService/authService";
 import ItemForm from "../components/ItemForm";
@@ -10,6 +10,8 @@ const UpdateItem = () => {
     // const [item, setItem] = useState(null)
 
     // const { user } = useContext(AuthContext)
+
+    const navigate = useNavigate()
 
 
     const { 
@@ -46,20 +48,20 @@ const UpdateItem = () => {
 
     const submitUpdate = (e) => {
       e.preventDefault();
-        // post(`/items/${params.id}/update-item`, {
-        //   name: name,
-        //   description: description
-        // })
-        // .then((results) => {
-        //   console.log(results)
-        // })
-        // .catch((err) => {
-        //   console.log(err)
-        // })
-        // .finally(() => {
-        //   setDescription('')
-        //   setName('');
-        // })
+        post(`/items/${params.id}/update-item`, {
+           item
+        })
+        .then((results) => {
+          console.log(results)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+        .finally(() => {
+          // setDescription('')
+          // setName('');
+          navigate(`/${user._id}/my-items`)
+        })
     }
 
     

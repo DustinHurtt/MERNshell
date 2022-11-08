@@ -1,7 +1,7 @@
 import "./App.css";
 // import React from "react";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useCallback } from "react";
 import { AuthContext } from "./contexts/auth.context";
 
 import Home from "./pages/Home";
@@ -18,17 +18,19 @@ import { LoadingContext } from "./contexts/load.context";
 
 const App = () => {
 
-  const { isLoading, message } = useContext(LoadingContext)
+  const { verifiedToken, isLoading, message } = useContext(LoadingContext)
 
   let token = localStorage.getItem("authToken");
 
-  const LoggedIn = () => {
-    return token ? <Outlet /> : <Navigate to="/" />;
-  };
+  const LoggedIn = useCallback(() => {
+    return verifiedToken ? <Outlet /> : <Navigate to="/" />;
+  }, [verifiedToken]);
 
-  const NotLoggedIn = () => {
-    return !token ? <Outlet /> : <Navigate to="/" />;
-  };
+  const NotLoggedIn = useCallback(() => {
+    return !verifiedToken ? <Outlet /> : <Navigate to="/" />;
+  }, [verifiedToken]);
+
+  
 
   return (
     <div>
@@ -40,6 +42,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/items" element={<Items />} />
+        {/* <Route path="/:id/update-item" element={<UpdateItem />}/> */}
 
         <Route element={<LoggedIn />}>
           <Route path="/delete-user" element={<DeleteUser />} />

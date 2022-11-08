@@ -7,7 +7,7 @@ import { get } from "../authService/authService";
 import Item from "../components/Item";
 
 const MyItems = () => {
-  const { isLoading, setDescription, setIsLoading, setName, setMessage, setItems, items, setItem } = useContext(LoadingContext);
+  const { isLoading, setDescription, setIsLoading, setName, setMessage, setItems, items, setItem, myItems } = useContext(LoadingContext);
 
   const userPage = true;
 
@@ -116,7 +116,7 @@ const MyItems = () => {
   // }, []);
 
   useEffect(() => {
-    console.log(items, "THESE ARE THE ITEMS ON THE MY ITEMS PAGE")
+    console.log(myItems, "THESE ARE THE ITEMS ON THE MY ITEMS PAGE")
   }, [])
 
   return (
@@ -128,7 +128,7 @@ const MyItems = () => {
             <th>Name</th>
             <th>Description</th>
           </tr>
-          {items.map((singleItem) => {
+          {myItems.map((singleItem) => {
             return (
               <Item singleItem={singleItem} userPage={userPage} handleUpdate={() => handleUpdate(singleItem._id)} handleDelete={() => handleDelete(singleItem._id)}  />
               );

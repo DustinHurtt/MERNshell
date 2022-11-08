@@ -11,30 +11,32 @@ const LoadingProvider = ({ children }) => {
     const [message, setMessage] = useState('');
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [item, setItem] = useState({})
-    const [items, setItems] = useState([])
+    const [item, setItem] = useState({});
+    const [items, setItems] = useState([]);
+    const [myItems, setMyItems] = useState([]);
+    const [verifiedToken, setVerifiedToken] = useState(null)
 
-    const getItem = (id) => {
+    // const getItem = (id) => {
 
-        setIsLoading(true)
-        // !item &&
-          get(`/items/${id}/this-item`)
-          .then((results) => {
-            console.log(results, "RESULTS");
-            setItem(results.data);
-            setName(results.data.name);
-            setDescription(results.data.description);
-            // setIsLoading(false)
-          })
-          .catch((err) => {
-            console.log(err, "THERE HAS BEEN AN ERROR");
-            setIsLoading(false)
-          })
-          .finally(() => {
-            console.log("FINALLY!!!")
-            setIsLoading(false)
-          })
-      }
+    //     setIsLoading(true)
+    //     // !item &&
+    //       get(`/items/${id}/this-item`)
+    //       .then((results) => {
+    //         console.log(results, "RESULTS");
+    //         setItem(results.data);
+    //         setName(results.data.name);
+    //         setDescription(results.data.description);
+    //         // setIsLoading(false)
+    //       })
+    //       .catch((err) => {
+    //         console.log(err, "THERE HAS BEEN AN ERROR");
+    //         setIsLoading(false)
+    //       })
+    //       .finally(() => {
+    //         console.log("FINALLY!!!")
+    //         setIsLoading(false)
+    //       })
+    //   }
 
 
 
@@ -44,7 +46,7 @@ const LoadingProvider = ({ children }) => {
 
 
     return (
-        <LoadingContext.Provider value={{ items, setItems, description, getItem, setItem, item, isLoading, message, name, user, setDescription, setIsLoading, setMessage, setName, setUser }}>
+        <LoadingContext.Provider value={{ myItems, setMyItems, verifiedToken, setVerifiedToken, items, setItems, description, setItem, item, isLoading, message, name, user, setDescription, setIsLoading, setMessage, setName, setUser }}>
           {children}
         </LoadingContext.Provider>
       );

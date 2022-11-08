@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 const Items = () => {
 
-    const { description, name, setDescription, setIsLoading, setMessage, setName, user, setItems, item } = useContext(LoadingContext);
+    const { items, setMyItems, verifiedToken, description, name, setDescription, setIsLoading, setMessage, setName, user, setItems, item, setItem } = useContext(LoadingContext);
 
     const [allItems, setAllItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -19,7 +19,7 @@ const Items = () => {
     // const [description, setDescription] = ('')
     
     const addItem = (newItem) => {
-        setAllItems([...allItems, newItem])
+        setItems([...items, newItem])
     }
 
     const deleteItem = () => {
@@ -31,8 +31,7 @@ const Items = () => {
         setIsLoading(true)
         e.preventDefault();
         const newItem = {
-            name: name, 
-            description: description,
+            ...item, 
             contributor: user._id
             }
         post("/items/add-item", newItem)
@@ -54,15 +53,17 @@ const Items = () => {
     }
 
     const getMyItems = (() => {
-        const myItems = allItems.filter((item => item.contributor.includes(user._id)))
-        setItems(myItems)
+        console.log('getting my items')
+        console.log(items, "All items when getting my Items")
+        const myItems = items.filter((item => item.contributor.includes(user._id)))
+        setMyItems(myItems)
         console.log(myItems, "these are my Items")
     })
 
 
     const filtered = !searchTerm
-      ? allItems
-      : allItems.filter((item) => 
+      ? items
+      : items.filter((item) => 
           item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             item.description.toLowerCase().includes(searchTerm.toLocaleLowerCase())
       )
@@ -70,17 +71,28 @@ const Items = () => {
 
     useEffect(() => {
         console.log(user, "this is the user")
-        setDescription('');
-        setName('');
-        get("/items", )
+        console.log(verifiedToken, "this is the verified token")
+        console.log(allItems, "these are all items when coming back to page")
+        console.log(item, "this is the item when coming back to the page")
+        // setDescription('');
+        // setName('');
+        setItem({...item, name: "", description: "", contributor: ""})
+
+  if(!items.length) {  
+        setIsLoading(true)  
+        get("/items")
         .then((results) => {
-            setAllItems(results.data.items)
+            setItems(results.data.items)
             console.log(results.data.items, "These are all items")
         })
         .catch((err) => {
             setMessage(err)
             console.log(err)
         })
+        .finally(() => {
+            setIsLoading(false)
+        })
+    }
     }, [])
 
     return (
