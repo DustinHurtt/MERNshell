@@ -36,10 +36,10 @@ const Items = () => {
             }
         post("/items/add-item", newItem)
         .then((result) => {
-            console.log(result.data)
+            console.log(result.data.addedItem, "RESULT from add-item")
             setIsLoading(false)
-            addItem(newItem)
-            setMessage(`${name} has been added to Items.`)
+            addItem(result.data.addedItem)
+            setMessage(`${result.data.addedItem.name} has been added to Items.`)
         })
         .catch((err) => {
             console.log(err.message)
@@ -47,8 +47,8 @@ const Items = () => {
             setIsLoading(false)
         })
         .finally(() => {
-            setName('');
-            setDescription('');
+            setItem({})
+            console.log(item, "item after being added")
         })
     }
 

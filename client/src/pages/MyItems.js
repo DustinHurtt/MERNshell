@@ -17,6 +17,10 @@ const MyItems = () => {
   // const [myItems, setMyItems] = useState([]);
 
   const handleDelete = (id) => {
+    const thisItem = items.find((item) => item._id === id)
+    setItem(thisItem)
+    console.log(thisItem, "This is the ITEM from the button")
+
     console.log(id, "TARGET")
     navigate(`/${id}/delete-item`)
   }

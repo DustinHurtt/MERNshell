@@ -7,7 +7,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 
-    const { setVerifiedToken, setIsLoading, setUser, setMessage} = useContext(LoadingContext)
+    const { verifiedToken, setVerifiedToken, setIsLoading, setUser, setMessage} = useContext(LoadingContext)
 
     // const [isLoading, setIsLoading] = useState(false);
     // const [user, setUser] = useState(null);
@@ -29,11 +29,13 @@ const AuthProvider = ({ children }) => {
                 .then((results) => {
                     console.log("Are we logged in?", results.data);
                     setUser(results.data)
-                    
+                    if (!verifiedToken) {
                     setVerifiedToken(token)
+                        }
                 })
                 .catch((err) => {
                     localStorage.clear();
+                    setVerifiedToken(null)
                     setIsLoading(false)
                     console.log(err.message);
                 })

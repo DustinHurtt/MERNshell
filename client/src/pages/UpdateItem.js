@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { LoadingContext } from "../contexts/load.context";
 import { get, post } from "../authService/authService";
 import ItemForm from "../components/ItemForm";
@@ -19,12 +19,43 @@ const UpdateItem = () => {
       user,
       setItem,
       items,
+      setItems,
+      setMyItems,
+      myItems,
       getItem, item, 
       setDescription, setIsLoading, setName 
     } = useContext(LoadingContext);
 
     const params = useParams();
 
+    let getIndex = (array, thisItem) => {
+      console.log(array, thisItem, "What's happeing in getIndex()")
+      return array.findIndex((element) => element._id === thisItem._id)
+    }
+
+    let updatedArray = (array, updatedItem) => {
+      console.log(getIndex(array, updatedItem), "INDEX")
+      array[(getIndex(array, updatedItem))] = updatedItem
+      return array
+
+      // return array.map(element => a)
+      // return array.map((element, i) => 
+      //   i === getIndex(array, updatedItem)
+      //   ? {...element, updatedItem}
+      //   : element
+        
+      // )
+      console.log(getIndex(array, updatedItem), "Index position")
+    }
+
+    // arr1.map(obj => arr2.find(o => o.id === obj.id) || obj)
+
+    // const updateShape = (shape, index) => {
+    //   setTheArrayOfObjects(state => state.map((el, i) => i === index
+    //     ? { ...el, shape }
+    //     : el,
+    //    ));
+    // };
     // const getItem = () => {
 
     //   setIsLoading(true);
@@ -52,12 +83,21 @@ const UpdateItem = () => {
            item
         })
         .then((results) => {
-          console.log(results)
+          console.log(results.data, "this is the result")
+          console.log(updatedArray(myItems, results.data), "updated My Items")
+          console.log(updatedArray(items, results.data), "updated All Items")
+          // setMyItems(updatedArray(myItems, results.data))
+          // setItems(updatedArray(items, results.data))
+          
         })
         .catch((err) => {
           console.log(err)
         })
         .finally(() => {
+          setItem({})
+          console.log(item, "item after being added")
+          console.log(items, "items after update")
+          console.log(myItems, "myItems after update")
           // setDescription('')
           // setName('');
           navigate(`/${user._id}/my-items`)
@@ -97,6 +137,9 @@ const UpdateItem = () => {
 
     return (
       <div>
+              <Link  
+        // onClick={getMyItems} 
+        to={`/${user._id}/my-items`}>My Items</Link>
         <h1>Update Item</h1>
         {/* {item && <ItemForm buttonName={'Update Item'} handleSubmit={submitUpdate} />}  */}
         <div>
