@@ -15,6 +15,7 @@ const isLoggedIn = async (req, res, next) => {
     console.log(error.message, "Error.message")
     return res.status(401).json(error);
   }
+  
 };
 
 module.exports = isLoggedIn;

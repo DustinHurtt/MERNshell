@@ -1,25 +1,32 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
-import { get } from "../authService/authService";
+import { get, post } from "../authService/authService";
 
 import { LoadingContext } from "../contexts/load.context";
 
 import ConfirmPassword from "../components/ConfirmPassword";
 import Item from "../components/Item";
 import Password from "../components/Password";
+import Modal from "../components/Modal";
 
 const DeleteItem = () => {
 
     // const [item, setItem] = useState({})
+    const [showModal, setShowModal] = useState(false)
 
     const { item, user } = useContext(LoadingContext)
 
 
     const params = useParams()
 
-    const handleSubmit = (id) => {
-    
+    const handleDelete = () => {
+      setShowModal(!showModal)
+      // e.preventDefault()
+      // console.log(e, "this is E from deletete button")
+      post(`/items/${item._id}/delete-item`)
+      console.log(item, "ITEM from Delete Item Button")
+        
     }
 
     // const getItem = () => {
@@ -54,13 +61,30 @@ const DeleteItem = () => {
 
         />
         </table>
-        <form onSubmit={handleSubmit}>
+        {/* <form onSubmit={(e)=>{handleSubmit(e)}}>
 
           <Password />
           <ConfirmPassword />
           <button type="submit">Delete Item</button>
 
-        </form>
+        </form> */}
+        <button
+        onClick={() => {
+          setShowModal(!showModal);
+        }}
+      >
+        Delete Item
+      </button>
+      <Modal
+        buttonAction={"Delete"}
+        showModal={showModal}
+        handleSubmit={handleDelete}
+        closeModal={() => {
+          setShowModal(false);
+        }}
+      >
+        <h3>Are you sure you would like to delete {item.name}?</h3>
+      </Modal>
       </div>
     );
   };

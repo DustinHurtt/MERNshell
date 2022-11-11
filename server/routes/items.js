@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const isLoggedIn = require('../middleware/isLoggedIn')
+const isContributor = require('../middleware/isContributor')
 
 const Item = require('../models/Item.model')
 const User = require('../models/User.model')
@@ -63,15 +63,21 @@ router.post('/:id/update-item', (req, res, next) => {
     })
 });
 
-router.post("/:id/delete-item", isLoggedIn, (req, res, next) => {
+router.post("/:id/delete-item", 
+isContributor, 
+(req, res, next) => {
+  
+  // console.log(req, "This is the user from the route")
+  console.log(req.params.id, "This is ID from the params")
+  console.log("MADE IT THIS FAR")
 
-  Photo.findByIdAndRemove(req.params.id)
-    .then(function () {
-      res.json({ message: "photo deleted" });
-    })
-    .catch(function (error) {
-      res.json(error);
-    });
+  // Photo.findByIdAndRemove(req.params.id)
+  //   .then(function () {
+  //     res.json({ message: "photo deleted" });
+  //   })
+  //   .catch(function (error) {
+  //     res.json(error);
+  //   });
 });
 
 module.exports = router;
