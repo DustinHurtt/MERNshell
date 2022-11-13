@@ -108,10 +108,16 @@ const UpdateItem = () => {
  
     
 
-    // useEffect(() => {
-    //   if (!item) {
-    //     getItem(params.id)
-    //   } 
+    useEffect(() => {
+      if (!item._id) {
+        console.log(item, "No Item")
+        get(`/items/${params.id}/this-item`)
+          .then((results) => {
+            console.log(results.data, "FROM GET ITEM")
+            setItem(results.data)
+          })
+      }
+    }, []) 
 
 
     //   else {
@@ -136,6 +142,7 @@ const UpdateItem = () => {
 //     }, [])
 
     return (
+      user &&
       <div>
               <Link  
         // onClick={getMyItems} 
@@ -144,8 +151,8 @@ const UpdateItem = () => {
         {/* {item && <ItemForm buttonName={'Update Item'} handleSubmit={submitUpdate} />}  */}
         <div>
 
-        {user &&
-        <ItemForm  buttonName={'Update Item'} handleSubmit={submitUpdate} />}
+
+        <ItemForm  buttonName={'Update Item'} handleSubmit={submitUpdate} />
         {/* <p>{item.name}</p> */}
 
         </div>

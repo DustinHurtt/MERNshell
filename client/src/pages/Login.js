@@ -29,6 +29,7 @@ const Login = () => {
       password: password
     })
       .then((results) => {
+        console.log(results.data, "LOGIN RESULTS")
         localStorage.setItem("authToken", results.data.token);
         localStorage.setItem("id", results.data.id);
         setMessage(results.data.message);

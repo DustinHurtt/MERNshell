@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-import { post } from "../authService/authService";
+import { get, post } from "../authService/authService";
 
 import { LoadingContext } from "../contexts/load.context";
 
@@ -10,9 +10,11 @@ import Modal from "../components/Modal";
 
 const DeleteItem = () => {
 
+    const params = useParams()
+
     const [showModal, setShowModal] = useState(false)
 
-    const { item, items, user, myItems, setItems, setMyItems, setMessage } = useContext(LoadingContext)
+    const { item, items, setItem, user, myItems, setItems, setMyItems, setMessage } = useContext(LoadingContext)
 
     const navigate = useNavigate()
 
@@ -38,8 +40,21 @@ const DeleteItem = () => {
         
     }
 
+    useEffect(() => {
+      if (!item._id) {
+        console.log(item, "No Item")
+        get(`/items/${params.id}/this-item`)
+          .then((results) => {
+            console.log(results.data, "FROM GET ITEM")
+            setItem(results.data)
+          })
+      }
+    }, []) 
+
 
     return (
+
+      user &&
       <div >
         <Link to={`/${user._id}/my-items`}>My Items</Link>
         <h1>Delete Item</h1>

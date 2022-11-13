@@ -31,7 +31,7 @@ router.post("/signup", (req, res, next) => {
           email: req.body.email
         })
           .then((createdUser) => {
-            const payload = { _id: createdUser._id };
+            const payload = { _id: createdUser._id, username: createdUser.username, email: createdUser.email };
 
             const token = jwt.sign(payload, process.env.SECRET, {
               algorithm: "HS256",
@@ -66,7 +66,7 @@ router.post("/login", (req, res, next) => {
       );
 
       if (doesMatch) {
-        const payload = { _id: foundUser._id, username: foundUser.username };
+        const payload = { _id: foundUser._id, username: foundUser.username, email: foundUser.email };
 
         const token = jwt.sign(payload, process.env.SECRET, {
           algorithm: "HS256",
@@ -83,6 +83,7 @@ router.post("/login", (req, res, next) => {
 });
 
 router.get("/login-test", isLoggedIn, (req, res) => {
+  console.log(req.user, "This is the REQ.user")
   return res.status(200).json(req.user);
 });
 

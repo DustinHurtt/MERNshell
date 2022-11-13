@@ -7,7 +7,7 @@ import { get } from "../authService/authService";
 import Item from "../components/Item";
 
 const MyItems = () => {
-  const { isLoading, setDescription, setIsLoading, setName, setMessage, setItems, items, setItem, myItems } = useContext(LoadingContext);
+  const { isLoading, setDescription, setIsLoading, setName, setMessage, setItems, items, setItem, myItems, setMyItems } = useContext(LoadingContext);
 
   const userPage = true;
 
@@ -17,7 +17,7 @@ const MyItems = () => {
   // const [myItems, setMyItems] = useState([]);
 
   const handleDelete = (id) => {
-    const thisItem = items.find((item) => item._id === id)
+    const thisItem = myItems.find((item) => item._id === id)
     setItem(thisItem)
     console.log(thisItem, "This is the ITEM from the button")
 
@@ -44,7 +44,7 @@ const MyItems = () => {
 //   // }
 //   }, [])
   const handleUpdate = (id) => {
-    const thisItem = items.find((item) => item._id === id)
+    const thisItem = myItems.find((item) => item._id === id)
     setItem(thisItem)
     console.log(id, "TARGET")
     console.log(thisItem, "This is the ITEM from the button")
@@ -120,7 +120,14 @@ const MyItems = () => {
   // }, []);
 
   useEffect(() => {
-    console.log(myItems, "THESE ARE THE ITEMS ON THE MY ITEMS PAGE")
+    !myItems.length && 
+    get(`/items/${params.id}/my-items`)
+      .then((results) => {
+        console.log(results.data.myItems, 'foundItems')
+        setMyItems(results.data.myItems)
+        
+      })
+    console.log(myItems, "No items")
   }, [])
 
   return (

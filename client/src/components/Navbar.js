@@ -27,6 +27,9 @@ const Navbar = () => {
                 <Link to="/items" className="icon">
                     Items
                 </Link>
+                <Link to={`/${user._id}/profile`} className='icon'> 
+                    Profile
+                </Link>
                 <Link to="/delete-user" className="icon">
                     Delete User
                 </Link>
