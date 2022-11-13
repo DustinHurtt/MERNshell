@@ -77,10 +77,10 @@ isLoggedIn,
       console.log(item.contributor.toHexString(), "FOUND ITEM CONTRIBUTOR")
       if (item.contributor.toHexString() === req.user._id) {
         item.delete()
-        res.json({message: `${item.name} has been deleted.`})
+        res.json({item: item, message: `${item.name} has been deleted.`})
         console.log("TOTAL MATCH")
       } else {
-        res.status(401).json({ message: "This item has not been deleted" });
+        res.status(401).json({ message: "This item can not been deleted" });
       }
     })
 

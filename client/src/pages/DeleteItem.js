@@ -1,35 +1,32 @@
-import { useContext, useEffect, useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-import { get, post } from "../authService/authService";
+import { post } from "../authService/authService";
 
 import { LoadingContext } from "../contexts/load.context";
 
-import ConfirmPassword from "../components/ConfirmPassword";
 import Item from "../components/Item";
-import Password from "../components/Password";
 import Modal from "../components/Modal";
 
 const DeleteItem = () => {
 
-    // const [item, setItem] = useState({})
     const [showModal, setShowModal] = useState(false)
 
-    const { item, user, setMessage } = useContext(LoadingContext)
+    const { item, items, user, myItems, setItems, setMyItems, setMessage } = useContext(LoadingContext)
 
     const navigate = useNavigate()
 
-
-    const params = useParams()
-
     const handleDelete = () => {
+
       setShowModal(!showModal)
-      // e.preventDefault()
-      // console.log(e, "this is E from deletete button")
+
       post(`/items/${item._id}/delete-item`)
         .then((result) => {
           setMessage(result.data.message)
           console.log(result, "DELETE RESULT")
+          setMyItems(myItems.filter((item) => item._id !== result.data.item._id))
+          setItems(items.filter((item) => item._id !== result.data.item._id))
+          console.log("My Items after delete", myItems.filter((item) => item._id !== result.data.item._id) )
         })
         .catch((err) => {
           console.log(err)
@@ -41,60 +38,29 @@ const DeleteItem = () => {
         
     }
 
-    // const getItem = () => {
-    //     get(`/items/${params.id}/this-item`)
-    //     .then((results) => {
-    //       console.log(results, "RESULTS");
-    //       setItem(results.data.item[0]);
-    //       // setIsLoading(false)
-    //     })
-    //     .catch((err) => {
-    //       console.log(err, "THERE HAS BEEN AN ERROR");
-    //     });
-    // }
-
-    // useEffect(() => {
-    //     getItem()
-    // }, [])
 
     return (
       <div >
-        <Link  
-        // onClick={getMyItems} 
-        to={`/${user._id}/my-items`}>My Items</Link>
+        <Link to={`/${user._id}/my-items`}>My Items</Link>
         <h1>Delete Item</h1>
         <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                    </tr>
-        <Item 
-        singleItem={item} 
-
-        />
+          <tr>
+              <th>Name</th>
+              <th>Description</th>
+          </tr>
+          <Item singleItem={item} />
         </table>
-        {/* <form onSubmit={(e)=>{handleSubmit(e)}}>
 
-          <Password />
-          <ConfirmPassword />
-          <button type="submit">Delete Item</button>
-
-        </form> */}
-        <button
-        onClick={() => {
-          setShowModal(!showModal);
-        }}
-      >
+        <button onClick={() => {setShowModal(!showModal)}}>
         Delete Item
-      </button>
+        </button>
       <Modal
         buttonAction={"Delete"}
         showModal={showModal}
         handleSubmit={handleDelete}
         closeModal={() => {
           setShowModal(false);
-        }}
-      >
+        }}>
         <h3>Are you sure you would like to delete {item.name}?</h3>
       </Modal>
       </div>
