@@ -132,7 +132,7 @@ const MyItems = () => {
             <th>Name</th>
             <th>Description</th>
           </tr>
-          {myItems.map((singleItem) => {
+          {[...myItems].reverse().map((singleItem) => {
             return (
               <Item singleItem={singleItem} userPage={userPage} handleUpdate={() => handleUpdate(singleItem._id)} handleDelete={() => handleDelete(singleItem._id)}  />
               );

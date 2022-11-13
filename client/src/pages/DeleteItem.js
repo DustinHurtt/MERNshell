@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 
 import { get, post } from "../authService/authService";
 
@@ -15,7 +15,9 @@ const DeleteItem = () => {
     // const [item, setItem] = useState({})
     const [showModal, setShowModal] = useState(false)
 
-    const { item, user } = useContext(LoadingContext)
+    const { item, user, setMessage } = useContext(LoadingContext)
+
+    const navigate = useNavigate()
 
 
     const params = useParams()
@@ -25,6 +27,16 @@ const DeleteItem = () => {
       // e.preventDefault()
       // console.log(e, "this is E from deletete button")
       post(`/items/${item._id}/delete-item`)
+        .then((result) => {
+          setMessage(result.data.message)
+          console.log(result, "DELETE RESULT")
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+        .finally(() => {
+          navigate(`/${user._id}/my-items`)
+        })
       console.log(item, "ITEM from Delete Item Button")
         
     }

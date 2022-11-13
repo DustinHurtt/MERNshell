@@ -47,7 +47,7 @@ const Items = () => {
             setIsLoading(false)
         })
         .finally(() => {
-            setItem({})
+            setItem({name: '', description: ''})
             console.log(item, "item after being added")
         })
     }
@@ -117,7 +117,7 @@ const Items = () => {
                         <th>Name</th>
                         <th>Description</th>
                     </tr>
-                    {filtered.map((singleItem) => {
+                    {[...filtered].reverse().map((singleItem) => {
                         return (
                                 <Item singleItem={singleItem} />
                             )

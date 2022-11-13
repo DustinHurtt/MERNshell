@@ -1,10 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-const isContributor = require('../middleware/isContributor')
+const isLoggedIn = require('../middleware/isLoggedIn')
 
 const Item = require('../models/Item.model')
-const User = require('../models/User.model')
 
 router.get('/', (req, res, next) => {
   Item.find()
@@ -64,12 +63,26 @@ router.post('/:id/update-item', (req, res, next) => {
 });
 
 router.post("/:id/delete-item", 
-isContributor, 
+// isContributor, 
+isLoggedIn,
 (req, res, next) => {
   
-  // console.log(req, "This is the user from the route")
-  console.log(req.params.id, "This is ID from the params")
-  console.log("MADE IT THIS FAR")
+  console.log(req.user._id, "This is the USER from the Middleware")
+  // console.log(req.params.id, "This is ID from the params")
+  // console.log("MADE IT THIS FAR")
+
+  Item.findById(req.params.id)
+    // .populate("contributor")  
+    .then((item) => {
+      console.log(item.contributor.toHexString(), "FOUND ITEM CONTRIBUTOR")
+      if (item.contributor.toHexString() === req.user._id) {
+        item.delete()
+        res.json({message: `${item.name} has been deleted.`})
+        console.log("TOTAL MATCH")
+      } else {
+        res.status(401).json({ message: "This item has not been deleted" });
+      }
+    })
 
   // Photo.findByIdAndRemove(req.params.id)
   //   .then(function () {
