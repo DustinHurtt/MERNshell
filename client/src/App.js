@@ -6,16 +6,17 @@ import { AuthContext } from "./contexts/auth.context";
 import { LoadingContext } from "./contexts/load.context";
 
 import Home from "./pages/Home";
+import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import NotFound from "./pages/NotFound";
-import DeleteUser from "./pages/DeleteUser";
-import Navbar from "./components/Navbar";
+import Profile from "./pages/Profile";
+import ChangePassword from "./pages/ChangePassword";
+import DeleteProfile from "./pages/DeleteProfile";
 import Items from "./pages/Items";
 import MyItems from "./pages/MyItems";
 import DeleteItem from "./pages/DeleteItem";
 import UpdateItem from "./pages/UpdateItem";
-import Profile from "./pages/Profile";
 
 const App = () => {
 
@@ -45,8 +46,9 @@ const App = () => {
         <Route path="/items" element={<Items />} />
 
         <Route element={<LoggedIn />}>
-          <Route path="/delete-user" element={<DeleteUser />} />
           <Route path="/:id/profile" element={<Profile />} />
+          <Route path="/:id/change-password" element={<ChangePassword />} />
+          <Route path="/:id/delete-profile" element={<DeleteProfile />} />
           <Route path="/:id/my-items" element={<MyItems />}/>
           <Route path="/:id/delete-item" element={<DeleteItem />}/>
           <Route path="/:id/update-item" element={<UpdateItem />}/>

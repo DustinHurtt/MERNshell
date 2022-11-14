@@ -6,7 +6,7 @@ import ConfirmPassword from "../components/ConfirmPassword";
 import { post } from "../authService/authService";
 import { useNavigate } from "react-router-dom";
 
-const DeleteUser = () => {
+const DeleteProfile = () => {
 
   const { setIsLoading, setMessage, setUser } = useContext(AuthContext)
 
@@ -42,7 +42,7 @@ const DeleteUser = () => {
 
   return (
     <div className="delete-user">
-      <h1>This is Delete User</h1>
+      <h1>Delete Profile</h1>
       <form onSubmit={checkError}>
         <Password setPassword={setPassword} />
         <ConfirmPassword setConfirmPassword={setConfirmPassword} />
@@ -52,4 +52,4 @@ const DeleteUser = () => {
   );
 };
 
-export default DeleteUser;
+export default DeleteProfile;

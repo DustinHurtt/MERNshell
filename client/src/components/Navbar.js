@@ -30,9 +30,6 @@ const Navbar = () => {
                 <Link to={`/${user._id}/profile`} className='icon'> 
                     Profile
                 </Link>
-                <Link to="/delete-user" className="icon">
-                    Delete User
-                </Link>
                 <button onClick={logout} className="icon">
                     Logout
                 </button>
