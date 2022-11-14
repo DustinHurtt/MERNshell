@@ -2,6 +2,8 @@ var express = require("express");
 var router = express.Router();
 
 const User = require("../models/User.model");
+const Item = require('../models/Item.model')
+
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
@@ -95,8 +97,13 @@ router.post("/delete-user", isLoggedIn, (req, res, next) => {
         foundUser.password
       );
       if (doesMatch) {
+        Item.deleteMany({contributor: req.user._id})
+        .then((result) => {
+          console.log(result)
+        })
+        .catch((err) => console.log(err))
         foundUser.delete();
-        res.json({ message: "success" });
+        res.json({ message: "Your profile has been deleted" });
       } else {
         res.status(401).json({ message: "password doesn't match" });
       }

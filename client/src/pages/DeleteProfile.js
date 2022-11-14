@@ -1,6 +1,7 @@
 import React from "react";
 import { useContext } from 'react';
 import { AuthContext } from "../contexts/auth.context";
+import { LoadingContext } from "../contexts/load.context";
 import Password from "../components/Password";
 import ConfirmPassword from "../components/ConfirmPassword";
 import { post } from "../authService/authService";
@@ -8,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const DeleteProfile = () => {
 
-  const { setIsLoading, setMessage, setUser } = useContext(AuthContext)
+  const { setIsLoading, setMessage, setUser, setItems, setMyItems } = useContext(LoadingContext)
 
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
@@ -28,7 +29,9 @@ const DeleteProfile = () => {
         .then((results) => {
           setUser(null);
           localStorage.clear();
-          setMessage("user deleted");
+          setMessage(results.data.message);
+          setItems([]);
+          setMyItems([]);
           navigate("/");
         })
         .catch((err) => {
@@ -46,7 +49,7 @@ const DeleteProfile = () => {
       <form onSubmit={checkError}>
         <Password setPassword={setPassword} />
         <ConfirmPassword setConfirmPassword={setConfirmPassword} />
-        <button type="submit">Submit</button>
+        <button type="submit">Delete Profile</button>
       </form>
     </div>
   );

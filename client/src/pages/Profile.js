@@ -23,14 +23,16 @@ const Profile = () => {
         
         <div>
             <h1>Profile</h1>
-            <table>
-                <tr>
-                    <td>Username: {user.username}</td>
-                    <td>Email: {user.email}</td>
-                    <td><button onClick={handleChangePassword}>Change Password</button></td>
-                    <td><button onClick={handleDeleteProfile}>Delete Profile</button></td>
-                </tr>
-            </table>
+            <div>
+
+                    <p>Username: {user.username}</p>
+                    <p>Email: {user.email}</p>
+                    
+                    <button onClick={handleChangePassword}>Change Password</button>
+                    
+                    <button onClick={handleDeleteProfile}>Delete Profile</button>
+
+            </div>
 
             <MyItems />
 

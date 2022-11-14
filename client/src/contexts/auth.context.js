@@ -7,7 +7,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 
-    const { verifiedToken, setVerifiedToken, setIsLoading, setUser, setMessage} = useContext(LoadingContext)
+    const { verifiedToken, setVerifiedToken, setIsLoading, setUser, setMessage, setItems, setMyItems} = useContext(LoadingContext)
 
     // const [isLoading, setIsLoading] = useState(false);
     // const [user, setUser] = useState(null);
@@ -54,6 +54,8 @@ const AuthProvider = ({ children }) => {
         localStorage.clear();
         setMessage("You are logged out.");
         setUser(null);
+        setItems([]);
+        setMyItems([]);
         setVerifiedToken(null)
         navigate("/");
       };
