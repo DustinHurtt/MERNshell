@@ -12,9 +12,9 @@ const DeleteItem = () => {
 
     const params = useParams()
 
-    const [showModal, setShowModal] = useState(false)
+    // const [showModal, setShowModal] = useState(false)
 
-    const { item, items, setItem, user, myItems, setItems, setMyItems, setMessage } = useContext(LoadingContext)
+    const { showModal, setShowModal, item, items, setItem, user, myItems, setItems, setMyItems, setMessage } = useContext(LoadingContext)
 
     const navigate = useNavigate()
 

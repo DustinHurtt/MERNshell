@@ -15,6 +15,7 @@ const LoadingProvider = ({ children }) => {
     const [items, setItems] = useState([]);
     const [myItems, setMyItems] = useState([]);
     const [verifiedToken, setVerifiedToken] = useState(null)
+    const [showModal, setShowModal] = useState(false)
 
     // const getItem = (id) => {
 
@@ -46,7 +47,7 @@ const LoadingProvider = ({ children }) => {
 
 
     return (
-        <LoadingContext.Provider value={{ myItems, setMyItems, verifiedToken, setVerifiedToken, items, setItems, description, setItem, item, isLoading, message, name, user, setDescription, setIsLoading, setMessage, setName, setUser }}>
+        <LoadingContext.Provider value={{ showModal, setShowModal, myItems, setMyItems, verifiedToken, setVerifiedToken, items, setItems, description, setItem, item, isLoading, message, name, user, setDescription, setIsLoading, setMessage, setName, setUser }}>
           {children}
         </LoadingContext.Provider>
       );

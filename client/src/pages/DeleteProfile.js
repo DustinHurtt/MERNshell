@@ -1,18 +1,20 @@
-import React from "react";
+import {useState } from "react";
 import { useContext } from 'react';
 import { AuthContext } from "../contexts/auth.context";
 import { LoadingContext } from "../contexts/load.context";
-import Password from "../components/Password";
-import ConfirmPassword from "../components/ConfirmPassword";
 import { post } from "../authService/authService";
 import { useNavigate } from "react-router-dom";
 
+import Password from "../components/Password";
+import ConfirmPassword from "../components/ConfirmPassword";
+import Modal from "../components/Modal";
+
 const DeleteProfile = () => {
 
-  const { setIsLoading, setMessage, setUser, setItems, setMyItems } = useContext(LoadingContext)
+  const { showModal, setShowModal, setIsLoading, setMessage, setUser, setItems, setMyItems } = useContext(LoadingContext)
 
-  const [password, setPassword] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const navigate = useNavigate();
 
@@ -46,11 +48,20 @@ const DeleteProfile = () => {
   return (
     <div className="delete-user">
       <h1>Delete Profile</h1>
-      <form onSubmit={checkError}>
+
         <Password setPassword={setPassword} />
         <ConfirmPassword setConfirmPassword={setConfirmPassword} />
-        <button type="submit">Delete Profile</button>
-      </form>
+        <button onClick={() => {setShowModal(!showModal)}}>Delete Profile</button>
+
+      <Modal
+        buttonAction={"Delete Profile"}
+        showModal={showModal}
+        handleSubmit={checkError}
+        closeModal={() => {
+          setShowModal(false);
+        }}>
+        <h3>Are you sure you would like to delete your profile?</h3>
+      </Modal>
     </div>
   );
 };

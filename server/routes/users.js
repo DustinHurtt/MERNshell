@@ -113,4 +113,8 @@ router.post("/delete-user", isLoggedIn, (req, res, next) => {
     });
 });
 
+router.post('/check-password', (req, res, next) => {
+  console.log("Checking Password")
+})
+
 module.exports = router;
