@@ -1,6 +1,9 @@
 import { useContext, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import { LoadingContext } from "../contexts/load.context";
+
+import { post } from "../authService/authService";
 
 import Modal from "../components/Modal";
 import Password from "../components/Password";
@@ -8,13 +11,42 @@ import ConfirmPassword from "../components/ConfirmPassword";
 
 const ChangePassword = () => {
 
-    const { showModal, setShowModal } = useContext(LoadingContext)
+    const { showModal, setShowModal, setMessage } = useContext(LoadingContext)
 
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const checkPassword = () => {
-        setShowModal(!showModal)
+    const params = useParams()
+
+    const checkPassword = (e) => {
+        e.preventDefault()
+        post(`/users/${params.id}/check-password`, {password: password})
+        .then((results) => {
+            console.log(results, "results from check password")
+            setShowModal(!showModal)
+            setPassword('')
+
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+
+    const changeSubmit = () => {
+        console.log(password, "This is cleared password after check")
+
+        if(password === confirmPassword){
+        
+        post(`/users/${params.id}/change-password`, {password})
+            .then(() => {
+                console.log("we've hit the change password route")
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+        } else {
+            setMessage("password doesn't match")
+        }
     }
 
     return (
@@ -22,14 +54,16 @@ const ChangePassword = () => {
         <div>
             <h1>Change Password</h1>
             <p>Enter your current password.</p>
-            <Password setPassword={setPassword}/>
-            <button onClick={checkPassword}>
-                Submit
-            </button>
+            <form onSubmit={checkPassword}>
+                <Password setPassword={setPassword}/>
+                <button 
+                // type="submit"
+                >Submit</button>
+            </form>
             <Modal
-                buttonAction={"Submit"}
+                buttonAction={"Change Password"}
                 showModal={showModal}
-                // handleSubmit={handleDelete}
+                handleSubmit={changeSubmit}
                 closeModal={() => {
                 setShowModal(false);
                 }}>

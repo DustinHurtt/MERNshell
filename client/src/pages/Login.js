@@ -51,7 +51,7 @@ const Login = () => {
         <form onSubmit={submit}>
           <Email setEmail={setEmail} />
           <Password setPassword={setPassword} />
-          <button>Submit</button>
+          <button type='submit'>Submit</button>
         </form>
       </div>
     </div>

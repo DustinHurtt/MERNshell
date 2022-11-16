@@ -85,7 +85,7 @@ const SignUp = () => {
           <Email setEmail={setEmail} />
           <Password setPassword={setPassword} />
           <ConfirmPassword setConfirmPassword={setConfirmPassword} />
-          <button>Submit</button>
+          <button type="submit">Submit</button>
         </form>
       </div>
     </div>
