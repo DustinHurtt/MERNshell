@@ -38,8 +38,12 @@ const ChangePassword = () => {
         if(password === confirmPassword){
         
         post(`/users/${params.id}/change-password`, {password})
-            .then(() => {
+            .then((result) => {
+                console.log("THESE ARE THE CHANGE RESULTS", result)
+                setMessage(result.data.message)
+                setShowModal(false)
                 console.log("we've hit the change password route")
+                setPassword('')
             })
             .catch((err) => {
                 console.log(err)

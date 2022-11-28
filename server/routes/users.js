@@ -136,6 +136,17 @@ router.post('/:id/check-password', (req, res, next) => {
 router.post("/:id/change-password", (req, res, next) => {
 
   console.log("REQ.BODY:", req.body)
+          const salt = bcrypt.genSaltSync(saltRounds);
+        const hashedPass = bcrypt.hashSync(req.body.password, salt)
+
+  User.findByIdAndUpdate(req.params.id, {password: hashedPass}, {new: true})
+  .then((updatedUser) => {
+    console.log("this is the updated user", updatedUser)
+    res.json({ message: "Your password has been updated"})
+  })
+  .catch((err) => {
+    console.log(err)
+  })
   // if (!req.body.username || !req.body.email || !req.body.password) {
   //   return res.status(400).json({ message: "please fill out all fields" });
   // }
