@@ -23,12 +23,15 @@ const ChangePassword = () => {
         post(`/users/${params.id}/check-password`, {password: password})
         .then((results) => {
             console.log(results, "results from check password")
-            setShowModal(!showModal)
             setPassword('')
-
+            
         })
         .catch((err) => {
             console.log(err)
+        })
+        .finally(() => {
+            setShowModal(!showModal)
+            
         })
     }
 
@@ -59,9 +62,9 @@ const ChangePassword = () => {
             <h1>Change Password</h1>
             <p>Enter your current password.</p>
             <form onSubmit={checkPassword}>
-                <Password setPassword={setPassword}/>
+                <Password setPassword={setPassword} password={password}/>
                 <button 
-                // type="submit"
+                type="submit"
                 >Submit</button>
             </form>
             <Modal
