@@ -11,7 +11,7 @@ import ConfirmPassword from "../components/ConfirmPassword";
 
 const ChangePassword = () => {
 
-    const { showModal, setShowModal, setMessage } = useContext(LoadingContext)
+    const { showModal, setShowModal, setMessage, setIsLoading } = useContext(LoadingContext)
 
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -20,6 +20,7 @@ const ChangePassword = () => {
 
     const checkPassword = (e) => {
         e.preventDefault()
+        setIsLoading(true)
         post(`/users/${params.id}/check-password`, {password: password})
         .then((results) => {
             console.log(results, "results from check password")
@@ -31,7 +32,7 @@ const ChangePassword = () => {
         })
         .finally(() => {
             setShowModal(!showModal)
-            
+            setIsLoading(false)
         })
     }
 

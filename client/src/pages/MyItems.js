@@ -121,11 +121,18 @@ const MyItems = () => {
 
   useEffect(() => {
     !myItems.length && 
+    setIsLoading(true)
     get(`/items/${params.id}/my-items`)
       .then((results) => {
         console.log(results.data.myItems, 'foundItems')
         setMyItems(results.data.myItems)
         
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      .finally(() => {
+        setIsLoading(false)
       })
     console.log(myItems, "No items")
   }, [])

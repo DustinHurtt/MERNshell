@@ -14,13 +14,14 @@ const DeleteItem = () => {
 
     // const [showModal, setShowModal] = useState(false)
 
-    const { showModal, setShowModal, item, items, setItem, user, myItems, setItems, setMyItems, setMessage } = useContext(LoadingContext)
+    const { showModal, setShowModal, item, items, setItem, user, myItems, setItems, setMyItems, setMessage, setIsLoading } = useContext(LoadingContext)
 
     const navigate = useNavigate()
 
     const handleDelete = () => {
 
       setShowModal(!showModal)
+      setIsLoading(true)
 
       post(`/items/${item._id}/delete-item`)
         .then((result) => {
@@ -29,6 +30,7 @@ const DeleteItem = () => {
           setMyItems(myItems.filter((item) => item._id !== result.data.item._id))
           setItems(items.filter((item) => item._id !== result.data.item._id))
           console.log("My Items after delete", myItems.filter((item) => item._id !== result.data.item._id) )
+          setIsLoading(false)
         })
         .catch((err) => {
           console.log(err)
@@ -42,11 +44,18 @@ const DeleteItem = () => {
 
     useEffect(() => {
       if (!item._id) {
+        setIsLoading(true)
         console.log(item, "No Item")
         get(`/items/${params.id}/this-item`)
           .then((results) => {
             console.log(results.data, "FROM GET ITEM")
             setItem(results.data)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+          .finally(() => {
+            setIsLoading(false)
           })
       }
     }, []) 

@@ -18,6 +18,7 @@ const UpdateItem = () => {
       // description, name,
       user,
       setItem,
+      setMessage,
       items,
       setItems,
       setMyItems,
@@ -79,6 +80,7 @@ const UpdateItem = () => {
 
     const submitUpdate = (e) => {
       e.preventDefault();
+      setIsLoading(true)
         post(`/items/${params.id}/update-item`, {
            item
         })
@@ -86,8 +88,10 @@ const UpdateItem = () => {
           console.log(results.data, "this is the result")
           console.log(updatedArray(myItems, results.data), "updated My Items")
           console.log(updatedArray(items, results.data), "updated All Items")
+          setMessage(`${results.data.name} has been updated`)
           // setMyItems(updatedArray(myItems, results.data))
           // setItems(updatedArray(items, results.data))
+          setIsLoading(false)
           
         })
         .catch((err) => {
@@ -110,11 +114,18 @@ const UpdateItem = () => {
 
     useEffect(() => {
       if (!item._id) {
+        setIsLoading(true)
         console.log(item, "No Item")
         get(`/items/${params.id}/this-item`)
           .then((results) => {
             console.log(results.data, "FROM GET ITEM")
             setItem(results.data)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+          .finally(() => {
+            setIsLoading(false)
           })
       }
     }, []) 
