@@ -53,11 +53,11 @@ const Items = () => {
     }
 
     const getMyItems = (() => {
-        console.log('getting my items')
-        console.log(items, "All items when getting my Items")
+        // console.log('getting my items')
+        // console.log(items, "All items when getting my Items")
         const myItems = items.filter((item => item.contributor.includes(user._id)))
         setMyItems(myItems)
-        console.log(myItems, "these are my Items")
+        // console.log(myItems, "these are my Items")
     })
 
 

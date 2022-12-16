@@ -5,10 +5,25 @@ import { LoadingContext } from "../contexts/load.context";
 
 const Navbar = () => {
 
+    let token = localStorage.getItem("authToken");
+
+    let id = localStorage.getItem("id")
+
+    console.log('THIS IS THE TOKEN', localStorage)
+
+    
     const { 
         // user, 
         logout } = useContext(AuthContext)
-    const { user } = useContext(LoadingContext)
+        const { user, items, myItems, setMyItems } = useContext(LoadingContext)
+    
+    const getMyItems = () => {
+        if(!myItems.length) {
+            const theseItems = items.filter((item => item.contributor.includes(user._id)))
+            setMyItems(theseItems)                   
+        }
+    }
+
 
     return (
         <div className="navbar">
@@ -19,7 +34,10 @@ const Navbar = () => {
                 </Link>
             </div>
             <h2 className="nav-headline">MERN Stack App</h2>
-            {user ? (
+            {
+
+                token
+                ? (
                 <nav className="nav-items">
                 <Link to="/" className="icon">
                     Home
@@ -27,9 +45,15 @@ const Navbar = () => {
                 <Link to="/items" className="icon">
                     Items
                 </Link>
-                <Link to={`/${user._id}/profile`} className='icon'> 
+                <Link to={`/${id}/profile`} onClick={getMyItems} className='icon'> 
                     Profile
                 </Link>
+                {/* <Link to={`/${user._id}/profile`} className='icon'> 
+                    Profile
+                </Link> */}
+                {/* <Link to={`/${user._id}/profile`} className='icon'> 
+                    Profile
+                </Link> */}
                 <button onClick={logout} className="icon">
                     Logout
                 </button>

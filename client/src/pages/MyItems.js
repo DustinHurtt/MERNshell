@@ -120,7 +120,9 @@ const MyItems = () => {
   // }, []);
 
   useEffect(() => {
-    !myItems.length && 
+    //!myItems.length && 
+    if(!items.length) {
+    console.log("MY ITEMS NO LENGTH", myItems)
     setIsLoading(true)
     get(`/items/${params.id}/my-items`)
       .then((results) => {
@@ -133,8 +135,8 @@ const MyItems = () => {
       })
       .finally(() => {
         setIsLoading(false)
-      })
-    console.log(myItems, "No items")
+      })}
+    // console.log(myItems, "No items")
   }, [])
 
   return (
