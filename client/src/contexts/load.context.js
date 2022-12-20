@@ -17,6 +17,13 @@ const LoadingProvider = ({ children }) => {
     const [verifiedToken, setVerifiedToken] = useState(null)
     const [showModal, setShowModal] = useState(false)
 
+    const setTimedMessage = (newMessageState, timeLimit) => {
+      setMessage(newMessageState);
+      setTimeout(() => {
+        setMessage('')
+      }, timeLimit)
+    }
+
     // const getItem = (id) => {
 
     //     setIsLoading(true)
@@ -47,7 +54,7 @@ const LoadingProvider = ({ children }) => {
 
 
     return (
-        <LoadingContext.Provider value={{ showModal, setShowModal, myItems, setMyItems, verifiedToken, setVerifiedToken, items, setItems, description, setItem, item, isLoading, message, name, user, setDescription, setIsLoading, setMessage, setName, setUser }}>
+        <LoadingContext.Provider value={{ showModal, setShowModal, myItems, setMyItems, verifiedToken, setVerifiedToken, items, setItems, description, setItem, item, isLoading, message, name, user, setDescription, setIsLoading, setMessage, setName, setUser, setTimedMessage }}>
           {children}
         </LoadingContext.Provider>
       );

@@ -14,7 +14,7 @@ const DeleteItem = () => {
 
     // const [showModal, setShowModal] = useState(false)
 
-    const { showModal, setShowModal, item, items, setItem, user, myItems, setItems, setMyItems, setMessage, setIsLoading } = useContext(LoadingContext)
+    const { showModal, setShowModal, item, items, setItem, user, myItems, setItems, setMyItems, setMessage, setIsLoading, setTimedMessage } = useContext(LoadingContext)
 
     const navigate = useNavigate()
 
@@ -25,7 +25,8 @@ const DeleteItem = () => {
 
       post(`/items/${item._id}/delete-item`)
         .then((result) => {
-          setMessage(result.data.message)
+          // setMessage(result.data.message)
+          setTimedMessage(result.data.message, 3000)
           console.log(result, "DELETE RESULT")
           setMyItems(myItems.filter((item) => item._id !== result.data.item._id))
           setItems(items.filter((item) => item._id !== result.data.item._id))
