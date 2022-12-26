@@ -87,6 +87,7 @@ const Items = () => {
         })
         .catch((err) => {
             setMessage(err)
+            setIsLoading(false)
             console.log(err)
         })
         .finally(() => {
@@ -97,7 +98,7 @@ const Items = () => {
 
     return (
 
-        <div>
+        <div className="page">
             <h1>This is the Items page.</h1>
 
             {user &&

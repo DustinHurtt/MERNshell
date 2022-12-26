@@ -140,7 +140,7 @@ const MyItems = () => {
   }, [])
 
   return (
-    <div>
+    <div className="page">
       <h2>My Items</h2>
 
         <table>

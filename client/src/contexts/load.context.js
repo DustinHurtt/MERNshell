@@ -17,11 +17,11 @@ const LoadingProvider = ({ children }) => {
     const [verifiedToken, setVerifiedToken] = useState(null)
     const [showModal, setShowModal] = useState(false)
 
-    const setTimedMessage = (newMessageState, timeLimit) => {
-      setMessage(newMessageState);
+    const setTimedMessage = (newMessage) => {
+      setMessage(newMessage);
       setTimeout(() => {
         setMessage('')
-      }, timeLimit)
+      }, 4000)
     }
 
     // const getItem = (id) => {

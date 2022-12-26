@@ -18,6 +18,8 @@ import MyItems from "./pages/MyItems";
 import DeleteItem from "./pages/DeleteItem";
 import UpdateItem from "./pages/UpdateItem";
 
+import Loading from "./components/Loading";
+
 const App = () => {
 
   const { verifiedToken, isLoading, message } = useContext(LoadingContext)
@@ -62,7 +64,7 @@ const App = () => {
       </Routes>
 
       {message && <p>{message}</p>}
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <Loading />}
       
     </div>
   );

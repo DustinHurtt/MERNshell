@@ -84,13 +84,6 @@ isLoggedIn,
       }
     })
 
-  // Photo.findByIdAndRemove(req.params.id)
-  //   .then(function () {
-  //     res.json({ message: "photo deleted" });
-  //   })
-  //   .catch(function (error) {
-  //     res.json(error);
-  //   });
 });
 
 module.exports = router;

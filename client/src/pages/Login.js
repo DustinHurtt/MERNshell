@@ -15,6 +15,7 @@ const Login = () => {
 
    const { setIsLoading, setMessage } = useContext(LoadingContext)
 
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -36,8 +37,8 @@ const Login = () => {
         navigate("/");
       })
       .catch((err) => {
-        setMessage(err.response.data.message)
         console.log("Something went wrong", err.message);
+        setMessage(err.response.data.message)
         setIsLoading(false);
       })
       .finally(() => {

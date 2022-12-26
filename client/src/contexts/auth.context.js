@@ -7,7 +7,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 
-    const { verifiedToken, setVerifiedToken, setIsLoading, setUser, setMessage, setItems, setMyItems} = useContext(LoadingContext)
+    const { verifiedToken, setVerifiedToken, setIsLoading, setUser, setMessage, setItems, setMyItems } = useContext(LoadingContext)
 
     // const [isLoading, setIsLoading] = useState(false);
     // const [user, setUser] = useState(null);
@@ -37,6 +37,7 @@ const AuthProvider = ({ children }) => {
                     localStorage.clear();
                     setVerifiedToken(null)
                     setIsLoading(false)
+                    setMessage(err.message)
                     console.log(err.message);
                 })
                 .finally(() => {
