@@ -46,7 +46,7 @@ const DeleteProfile = () => {
   };
 
   return (
-    <div className="delete-user">
+    <div className="page delete-user">
       <h1>Delete Profile</h1>
 
         <Password setPassword={setPassword} />

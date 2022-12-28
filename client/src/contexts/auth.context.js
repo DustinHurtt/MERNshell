@@ -38,6 +38,7 @@ const AuthProvider = ({ children }) => {
                     setVerifiedToken(null)
                     setIsLoading(false)
                     setMessage(err.message)
+                    // better message
                     console.log(err.message);
                 })
                 .finally(() => {

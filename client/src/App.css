@@ -61,32 +61,8 @@ nav {
   justify-content: space-evenly;
 }
 
-.form-item {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
 p {
   text-align: center;
-}
-
-.delete-user {
-  margin: auto;
-  width: 30vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.delete-user form {
-  width: 100%;
-  height: 18vh;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: space-evenly;
 }
 
 .modal-backdrop {
@@ -143,4 +119,28 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.delete-user {
+  /* margin: auto; */
+  width: 30vw;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+}
+
+/* .delete-user form {
+  width: 100%;
+  height: 18vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-evenly;
+} */
+
+.form-item {
+  /* width: 100%; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

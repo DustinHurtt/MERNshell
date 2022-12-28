@@ -65,7 +65,7 @@ const DeleteItem = () => {
     return (
 
       user &&
-      <div >
+      <div className="page" >
         <Link to={`/${user._id}/my-items`}>My Items</Link>
         <h1>Delete Item</h1>
         <table>

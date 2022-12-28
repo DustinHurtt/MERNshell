@@ -59,7 +59,7 @@ const ChangePassword = () => {
 
     return (
 
-        <div>
+        <div className="page">
             <h1>Change Password</h1>
             <p>Enter your current password.</p>
             <form onSubmit={checkPassword}>
