@@ -19,6 +19,7 @@ import DeleteItem from "./pages/DeleteItem";
 import UpdateItem from "./pages/UpdateItem";
 
 import Loading from "./components/Loading";
+import MobileNavBar from "./components/MobileNavBar";
 
 const App = () => {
 
@@ -40,6 +41,7 @@ const App = () => {
     <div>
 
       <Navbar/>
+      <MobileNavBar />
 
       <Routes>
       

@@ -26,6 +26,10 @@ nav {
   justify-content: space-between;
 }
 
+/* h1 {
+  word-wrap: break-word
+} */
+
 .nav-icon-container {
   display: flex;
   flex-direction: row;
@@ -143,4 +147,24 @@ p {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.mobile-navbar {
+  visibility: hidden;
+  height: 0px;
+  display: none;
+}
+
+@media (max-width: 850px) {
+  
+.mobile-navbar {
+  visibility: visible;
+  display: inherit;
+}
+
+.navbar {
+  visibility: hidden;
+  height: 0px
+}
+
 }
